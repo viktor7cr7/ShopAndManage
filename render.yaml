@@ -1,0 +1,52 @@
+services:
+  - type: web
+    name: frontend
+    runtime: docker
+    plan: free
+    dockerfilePath: ./frontend/Dockerfile
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: ORIGIN_URL
+        fromService:
+          name: frontend
+          type: web
+          property: url
+
+  - type: web
+    name: backend
+    runtime: docker
+    plan: free
+    dockerfilePath: ./backend/Dockerfile
+    envVars:
+      - key: PORT
+        value: 3005
+      - key: JWT_SECRET
+        value: "487bec0b5cd031c5d4907aee14356f8483aa8b95a84c93552e77a362a709a28cb35e1f90aca7a3a0bcef3544607e87b5eb6acc4cb1040c60456fedbc93621dbf"
+      - key: JWT_EXPIRES_IN
+        value: 1d
+      - key: CLOUD_NAME
+        value: dyarhqimg
+      - key: CLOUD_API_KEY
+        value: 134733326371941
+      - key: CLOUD_API_SECRET
+        value: E8vX1VghGXjmFXIyWiFO11lipBc
+      - key: ORIGIN_URL
+        fromService:
+          name: backend
+          type: web
+          property: url
+      - key: PGP_URL
+        fromDatabase:
+          name: db
+          property: connectionString
+      - key: PGP_URL_ADMIN
+        fromDatabase:
+          name: db
+          property: connectionString
+
+databases:
+  - name: db
+    plan: free
+    region: frankfurt
+    postgresMajorVersion: "16"

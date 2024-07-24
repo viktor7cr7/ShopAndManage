@@ -1,0 +1,1 @@
+export const DOLLAR_EXCHANGE_RATE = 87.90;

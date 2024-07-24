@@ -1,0 +1,87 @@
+/* Основной контейнер */
+.react-datepicker-wrapper {
+    width: 100%;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .react-datepicker__input-container {
+    width: 100%;
+  }
+  
+  .react-datepicker__input-container input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  
+  .react-datepicker__input-container input:focus {
+    border-color: #007bff;
+  }
+  
+  /* Календарь */
+  .react-datepicker {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    overflow: hidden;
+  }
+  
+  .react-datepicker__header {
+    background-color: #007bff;
+    color: #fff;
+    border-bottom: 1px solid #007bff;
+    padding: 10px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+  
+  .react-datepicker__current-month,
+  .react-datepicker-time__header,
+  .react-datepicker-year-header {
+    font-size: 1.2em;
+  }
+  
+  .react-datepicker__day-name,
+  .react-datepicker__day,
+  .react-datepicker__time-name {
+    width: 2.5em;
+    line-height: 2.5em;
+    margin: 0.166em;
+    font-size: 1em;
+    border-radius: 50%;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .react-datepicker__day:hover,
+  .react-datepicker__month-text:hover,
+  .react-datepicker__quarter-text:hover,
+  .react-datepicker__year-text:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .react-datepicker__day--selected,
+  .react-datepicker__month-text--selected,
+  .react-datepicker__quarter-text--selected,
+  .react-datepicker__year-text--selected {
+    background-color: blanchedalmond;
+    color: black;
+  }
+  
+  .react-datepicker__day--keyboard-selected,
+  .react-datepicker__month-text--keyboard-selected,
+  .react-datepicker__quarter-text--keyboard-selected,
+  .react-datepicker__year-text--keyboard-selected {
+    background-color: gold;
+    color: #fff;
+  }
+  
+  .react-datepicker__day--today {
+    font-weight: bold;
+    color:magenta;
+  }
