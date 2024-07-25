@@ -32,9 +32,8 @@ services:
       - key: CLOUD_API_SECRET
         value: E8vX1VghGXjmFXIyWiFO11lipBc
       - key: PGP_URL_ADMIN
-        fromDatabase:
-          name: db_n2ly
-          property: connectionString
+        value: "postgresql://db_n2ly_user:AKwivUtLGC5DVfzvWdvkYbIh8kK4zkM6@dpg-cqgnkqiju9rs738dj5ng-a.frankfurt-postgres.render.com/db_n2ly"
+
 
 databases:
   - name: db_n2ly
