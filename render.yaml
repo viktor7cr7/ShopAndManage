@@ -4,12 +4,14 @@ services:
     runtime: docker
     plan: free
     dockerfilePath: ./frontend/Dockerfile
+    dockerContext: ./frontend
 
   - type: web
     name: backend
     runtime: docker
     plan: free
     dockerfilePath: ./backend/dockerfile
+    dockerContext: ./backend
     envVars:
       - key: PORT
         value: 3005
