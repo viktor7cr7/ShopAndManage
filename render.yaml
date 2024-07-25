@@ -3,13 +3,13 @@ services:
     name: frontend
     runtime: docker
     plan: free
-    dockerfilePath: ./frontend/Dockerfile
-    
+    dockerfilePath: ./frontend/dockerfile
+
   - type: web
     name: backend
     runtime: docker
     plan: free
-    dockerfilePath: ./backend/Dockerfile
+    dockerfilePath: ./backend/dockerfile
     envVars:
       - key: PORT
         value: 3005
