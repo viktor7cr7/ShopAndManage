@@ -6,7 +6,6 @@ import { OrdersProvider } from "../contexts/OrdersContext";
 import FormRow from "../components/FormRow";
 import FormRowSelect from "../components/FormRowSelect";
 import { PRODUCT_SORT_BY, STATUS_PAYMENT } from "../utils/constants";
-import { DOLLAR_EXCHANGE_RATE } from "../../../utils/constants";
 
 export const loader = async () => {
     try {
@@ -50,7 +49,7 @@ const renderOrder = (items) => {
             if (!acc[order.order_id]) {
                 acc[order.order_id] = {
                     order_id: String(order.order_id),
-                    total_price: Number(order.total_price * DOLLAR_EXCHANGE_RATE).toFixed(2),
+                    total_price: Number(order.total_price * 87.90).toFixed(2),
                     status: order.status,
                     created_at: order.created_at, 
                     items: []
@@ -62,7 +61,7 @@ const renderOrder = (items) => {
                 product_id: order.product_id,
                 product_name: order.product_name,
                 quantity: order.quantity,
-                price: Number(order.price * DOLLAR_EXCHANGE_RATE).toFixed(2)
+                price: Number(order.price * 87.90).toFixed(2)
             })
     
             return acc
