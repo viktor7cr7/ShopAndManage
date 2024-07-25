@@ -4,6 +4,7 @@ dotenv.config();
 import path from 'path';
 import {dirname} from 'path'
 const app = express();
+import { dbConnect } from './dbConnect.js';
 import { dbConnectAdmin } from './dbConnect.js';
 import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js';
 import cloudinary from 'cloudinary';
