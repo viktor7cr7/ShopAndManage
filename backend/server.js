@@ -16,6 +16,7 @@ import userRouter from './routers/userRoutes.js';
 import { authenticateAdmin, authenticateUser } from './middleware/authMiddleware.js';
 import cookieParser from 'cookie-parser';
 import { StatusCodes } from 'http-status-codes';
+import { fileURLToPath } from 'url';
 
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
