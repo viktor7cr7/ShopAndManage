@@ -6,7 +6,6 @@ import Wrapper from "../assets/wrappers/ProfileUser";
 import FormRow from "../components/FormRow";
 import ProgressBar from "../components/Grades";
 import { useDiscount } from "../contexts/DiscountContext";
-import { DOLLAR_EXCHANGE_RATE } from "../../../utils/constants";
 
 export const loader = async () => {
     try {
@@ -46,7 +45,7 @@ export const action = async ({request}) => {
       const totalValue = totalAmount[0].sum
       const isSubmitting = navigation.state === 'submitting'
       const infoGrade = {
-        summAmount: Math.round((totalValue || 0) * DOLLAR_EXCHANGE_RATE),
+        summAmount: Math.round((totalValue || 0) * 87.90),
         currentLevel: 'Новичок',
         nextPriceLevel: 1
       }

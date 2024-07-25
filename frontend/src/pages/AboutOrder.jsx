@@ -6,7 +6,6 @@ import customFetch from '../utils/customFetch';
 import formatPrice from '../utils/formatPrice';
 import RatingStar from '../components/RatingSetProduct';
 import { toast } from 'react-toastify';
-import { DOLLAR_EXCHANGE_RATE } from '../../../utils/constants';
 
 const AboutOrder = () => {
   const { id } = useParams();
@@ -34,7 +33,7 @@ const AboutOrder = () => {
   }
 
   const convertPrice = (value) => {
-    return formatPrice(Math.round(Number(value * DOLLAR_EXCHANGE_RATE)))
+    return formatPrice(Math.round(Number(value * 87.90)))
   }
 
   return (
