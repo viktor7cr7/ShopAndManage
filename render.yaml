@@ -37,7 +37,7 @@ services:
           property: connectionString
 
 databases:
-  - name: db
+  - name: db_n2ly
     plan: free
     region: frankfurt
     postgresMajorVersion: "16"
