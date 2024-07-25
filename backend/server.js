@@ -5,6 +5,7 @@ import path from 'path';
 import {dirname} from 'path'
 const app = express();
 import { dbConnect } from './dbConnect.js';
+import { dbConnectAdmin } from './dbConnect.js';
 import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js';
 import cloudinary from 'cloudinary';
 
@@ -32,6 +33,7 @@ app.use(express.static(path.resolve(__dirname, './public')))
 app.get('*', (req,res) => {
     res.sendFile(path.resolve(__dirname, './public', 'index.html'))
 })
+const port = process.env.PORT || 3005;
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/admin', authenticateAdmin, controlProductAdmin, adminRouter);
 app.use('/api/v1', authenticateUser, userRouter, paymentRouter);
@@ -43,11 +45,10 @@ app.use('*', (req, res) => {
 
 app.use(errorHandlerMiddleware);
 
-const port = process.env.PORT || 3000;
 
 (async function () {
     try {
-        await dbConnect.connect();
+        await dbConnectAdmin.connect();
         app.listen(port, () => {
             console.log(`server starting with port ${port}`);
         });

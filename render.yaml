@@ -33,11 +33,11 @@ services:
         value: E8vX1VghGXjmFXIyWiFO11lipBc
       - key: PGP_URL
         fromDatabase:
-          name: db
+          name: db_user
           property: connectionString
       - key: PGP_URL_ADMIN
         fromDatabase:
-          name: db
+          name: db_admin
           property: connectionString
 
 databases:
