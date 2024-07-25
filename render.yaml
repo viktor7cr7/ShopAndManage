@@ -31,13 +31,9 @@ services:
         value: 134733326371941
       - key: CLOUD_API_SECRET
         value: E8vX1VghGXjmFXIyWiFO11lipBc
-      - key: PGP_URL
-        fromDatabase:
-          name: db_user
-          property: connectionString
       - key: PGP_URL_ADMIN
         fromDatabase:
-          name: db_admin
+          name: db_n2ly
           property: connectionString
 
 databases:
