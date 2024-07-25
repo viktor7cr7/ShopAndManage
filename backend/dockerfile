@@ -1,6 +1,12 @@
 FROM node:18.14.0
+RUN ls -la 
 WORKDIR /app
-COPY . .
+COPY package*.json ./
+RUN ls -la /app
+RUN chmod 644 package*.json
 RUN npm install
+COPY . .
+RUN ls -la /app
+RUN chmod -R 755 .
 EXPOSE 5000
 CMD ["node", "server.js"]

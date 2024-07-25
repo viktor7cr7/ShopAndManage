@@ -3,7 +3,7 @@ services:
     name: frontend
     runtime: docker
     plan: free
-    dockerfilePath: .frontend/Dockerfile
+    dockerfilePath: ./frontend/Dockerfile
 
   - type: web
     name: backend
