@@ -1,12 +1,10 @@
 FROM node:18.14.0
-RUN ls -la 
 WORKDIR /app
 COPY package*.json ./
-RUN ls -la /app
-RUN chmod 644 package*.json
+COPY ./package-lock.json ./
 RUN npm install
 COPY . .
-RUN ls -la /app
-RUN chmod -R 755 .
-EXPOSE 5000
+
+COPY --from=frontend-builder /app/dist /app/public
 CMD ["node", "server.js"]
+EXPOSE 3000
