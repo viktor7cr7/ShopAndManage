@@ -13,6 +13,8 @@ services:
           name: backend
           type: web
           property: url
+      - key: PORT
+        value: 5000
 
   - type: web
     name: backend
