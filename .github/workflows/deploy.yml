@@ -24,7 +24,7 @@ jobs:
 
     - name: Build and push frontend image
       run: |
-        docker build -t itqa47frontend:latest ./frontend
+        docker build -t itqa47/frontend:latest ./frontend
         docker push itqa47/frontend:latest
 
     - name: Deploy to Render
