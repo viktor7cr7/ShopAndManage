@@ -24,13 +24,13 @@ jobs:
 
     - name: Build and push frontend image
       run: |
-        docker build -t itqa47frontend:latest ./frontend
+        docker build -t itqa47/frontend:latest ./frontend
         docker push itqa47/frontend:latest
 
     - name: Deploy to Render
       env:
         RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
-        run: |
+      run: |
           curl -X POST "https://api.render.com/v1/services/srv-cqgnllaju9rs738djhq0/deploys" \
           -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
           -H "Content-Type: application/json" \
