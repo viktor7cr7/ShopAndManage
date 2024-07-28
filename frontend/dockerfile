@@ -1,15 +1,7 @@
-FROM node:18.14.0 AS frontend-builder
+FROM node:18.14.0
 WORKDIR /app
 COPY ./package.json ./
 COPY ./package-lock.json ./
 RUN npm install
 COPY . .
 RUN npm run build
-
-# Stage for serving the built files
-FROM node:18.14.0
-WORKDIR /app
-COPY --from=frontend-builder /app/dist /app/public
-RUN npm install -g serve
-CMD ["serve", "-s", "public"]
-EXPOSE 3000

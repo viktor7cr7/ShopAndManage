@@ -5,6 +5,6 @@ COPY ./package-lock.json ./
 RUN npm install
 COPY . .
 
-COPY --from=frontend-builder /app/dist /app/public
+COPY --from=itqa47/frontend:latest /app/dist /app/public
 CMD ["node", "server.js"]
 EXPOSE 3000
