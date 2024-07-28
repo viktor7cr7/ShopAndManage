@@ -28,15 +28,17 @@ cloudinary.config({
   
 app.use(cookieParser());
 app.use(express.json());
+
+const port = process.env.PORT || 3005;
+app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/admin', authenticateAdmin, controlProductAdmin, adminRouter);
+app.use('/api/v1', authenticateUser, userRouter, paymentRouter);
+
 const __dirname = dirname(fileURLToPath(import.meta.url))
 app.use(express.static(path.resolve(__dirname, './public')))
 app.get('*', (req,res) => {
     res.sendFile(path.resolve(__dirname, './public', 'index.html'))
 })
-const port = process.env.PORT || 3005;
-app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/admin', authenticateAdmin, controlProductAdmin, adminRouter);
-app.use('/api/v1', authenticateUser, userRouter, paymentRouter);
 app.use('*', (req, res) => {
     res.status(StatusCodes.NOT_FOUND).json({
         msg: 'Указанного пути не существует',
