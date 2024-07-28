@@ -14,8 +14,7 @@ export const loader = async({request}) => {
     console.log(data)
     return {data, searchValues: {...params}}
   } catch (error) {
-    toast.error(error?.response?.data?.msg)
-    throw new Error(error.message)
+    return toast.error(error?.response?.data?.msg)
   }
 }
 

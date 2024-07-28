@@ -7,8 +7,7 @@ export const action = async({params}) => {
     await customFetch.delete(`/admin/product/${params.id}`)
     toast.success('Product delete success')
   } catch (error) {
-    toast.error(error?.response?.data?.msg) 
-    throw new Error(message.error)
+    return toast.error(error?.response?.data?.msg) 
   }
   return redirect('/dashboard/admin/all-products')
 }

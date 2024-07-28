@@ -33,8 +33,7 @@ export const action = async({request, params}) => {
         }
       });
     } catch (error) {
-      toast.error(error?.response?.data?.msg) 
-      throw new Error(message.error)
+      return toast.error(error?.response?.data?.msg) 
     }
   }
 

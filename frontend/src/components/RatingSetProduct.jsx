@@ -31,8 +31,7 @@ const RatingStar = ({ productId, itemId, orderId }) => {
         setRating(rate);
         toast.success('Спасибо за отзыв!')
       } catch (error) {
-        toast.error(error?.response?.data?.msg)
-        throw new Error(error.message)
+        return toast.error(error?.response?.data?.msg)
       }
     };
 

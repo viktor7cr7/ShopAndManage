@@ -55,7 +55,7 @@ const Cart = ({handleCloseCartModal}) => {
         const {data} = await customFetch.post('/create-checkout-session', dataforServer)
         window.location.href = data.session.url 
     } catch (error) {
-        toast.error(error?.response?.data?.msg)
+        return toast.error(error?.response?.data?.msg)
     }       
   }
 

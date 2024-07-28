@@ -13,8 +13,7 @@ export const loader = async ({request, params}) => {
         await customFetch.post(`/auth/verify-email/${type}?token=${token}&email=${email}`)
         return null
     } catch (error) {
-        toast.error(error?.response?.data?.msg) 
-        throw new Error(message.error)
+        return toast.error(error?.response?.data?.msg) 
     }
     
 }

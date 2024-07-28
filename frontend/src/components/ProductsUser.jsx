@@ -82,8 +82,7 @@ const Products = ({
         window.location.href = sessionUrl;
 
     } catch (error) {
-        toast.error(error?.response?.data?.msg)
-        throw new Error(error.message)
+        return toast.error(error?.response?.data?.msg)
     }
   };
 

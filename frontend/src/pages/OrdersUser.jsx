@@ -12,8 +12,7 @@ export const loader = async () => {
       const {data} = await customFetch.get('/orders')
       return data
     } catch (error) {
-        toast.error(error?.response?.data?.msg)
-        throw new Error(error.message)
+        return toast.error(error?.response?.data?.msg)
     }
 }
 

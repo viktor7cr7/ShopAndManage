@@ -19,8 +19,7 @@ export const action = async ({request}) => {
         window.location.href = sessionUrl
         return null
     } catch (error) {
-        toast.error(error?.response?.data?.msg)
-        throw new Error(error.message)
+        return toast.error(error?.response?.data?.msg)
     }
 }
 

@@ -24,8 +24,7 @@ const DiscountModal = ({ onClose, onSave, product_id }) => {
             navigate('/dashboard/admin/all-products')
             onClose();
         } catch (error) {
-            toast.error(error?.response?.data?.msg)
-            throw new Error(error.message)
+           return toast.error(error?.response?.data?.msg)
         }
     };
 

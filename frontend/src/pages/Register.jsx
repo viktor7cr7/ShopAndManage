@@ -22,8 +22,7 @@ export const action = async({request, params}) => {
     toast.success('Registartion successful')
     return redirect(redirectPath)
   } catch (error) {
-    toast.error(error?.response?.data?.msg)
-    throw new Error(error.message)
+    return toast.error(error?.response?.data?.msg)
   }
 
 }

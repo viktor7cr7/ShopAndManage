@@ -20,8 +20,7 @@ export const action = async ({request}) => {
       toast.success('Товар успешно добавлен')
       return redirect('/dashboard/admin/all-products')
     } catch (error) {
-      toast.error(error?.response?.data?.msg)
-      throw new Error(error.message)
+      return toast.error(error?.response?.data?.msg)
     }
 }
 

@@ -21,9 +21,9 @@ export async function createUser(req, res, next) {
     const origin = process.env.ORIGIN_URL ? `${process.env.ORIGIN_URL}/verify-email/user` : 'http://localhost:5173/verify-email/user';
     try {
 
-        const checkUser = dbConnect.oneOrNone('SELECT id, isverified from users where email = $1', [email])
+        const checkUser = await dbConnect.oneOrNone('SELECT id, isverified from users where email = $1', [email])
 
-        if (!checkUser) {
+        if (checkUser) {
             return next(new BadRequestError('Пользователь с данным email уже зарегестрирован'))
         }
 
@@ -254,8 +254,8 @@ export async function createAdminUser(req, res, next) {
     const origin = process.env.ORIGIN_URL ? `${process.env.ORIGIN_URL}/verify-email/user` : 'http://localhost:5173/verify-email/admin'
     try {
         const checkUser = await dbConnectAdmin.oneOrNone('SELECT * from users where email = $1', [email])
-        if (!checkUser) {
-            next(new BadRequestError('Пользователь с данным email уже зарегестрирован'));
+        if (checkUser) {
+            return next(new BadRequestError('Пользователь с данным email уже зарегестрирован'));
         }
         const user = await dbConnectAdmin.one(
             'INSERT INTO users(name, email, password, verificationtoken) VALUES($1, $2, $3, $4) RETURNING name, email, password',
@@ -270,7 +270,7 @@ export async function createAdminUser(req, res, next) {
             });
         }
     } catch (error) {
-        next(new ErrorFromDataBase(error.message));
+        return next(new ErrorFromDataBase(error.message));
     }
 }
 

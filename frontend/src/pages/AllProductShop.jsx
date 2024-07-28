@@ -13,8 +13,7 @@ export const loader = async({request}) => {
     const {data} = await customFetch('/products', {params})
     return {data, searchValues: {...params}}
   } catch (error) {
-    toast.error(error?.response?.data?.msg)
-    throw new Error(error.message)
+    throw toast.error(error?.response?.data?.msg)
   }
 }
 

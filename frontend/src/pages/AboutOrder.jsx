@@ -19,8 +19,7 @@ const AboutOrder = () => {
         const items = data[id]
         setOrder(items)
       } catch (error) {
-        toast.error(error?.response?.data?.msg)
-        throw new Error(error.message)
+        return toast.error(error?.response?.data?.msg)
       }
     }
 
