@@ -23,19 +23,9 @@ const ModalWrapper = styled.div`
     justify-content: center;
   }
 
-  .product-name {
+  .name-product {
     letter-spacing: normal;
-  display: inline-block;
-  font-size: 1.7rem; 
-  font-weight: bold;
-  border-radius: 4px;
-  margin-left: 5px; 
-  height: 55px;
-  -webkit-box-orient: vertical;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    overflow: hidden
-  
+    font-weight: bold;
   }
 
   @media (min-width: 992px) {

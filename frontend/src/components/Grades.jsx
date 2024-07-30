@@ -1,6 +1,6 @@
 import { ProgressBarContainer, Progress, Level, LevelImage, ProgressLabel } from "../assets/wrappers/ProgressBar";
-
-
+const baseUrl = import.meta.env.VITE_BASE_URL_IMG;
+console.log(baseUrl)
 const getColor = (amount) => {
     if (amount >= 0) return 'gold';
     if (amount >= 25000) return 'green';
@@ -23,17 +23,17 @@ const ProgressBar = ({ amount }) => {
         </ProgressBarContainer>
         <Level>
           <div className="discount-info">
-            <LevelImage src="\src\assets\wrappers\img\icons8-медали-64.png" alt="Start Level" />
+            <LevelImage src={`${baseUrl}\\icons8-медали-64.png`} alt="Start Level" />
             <ProgressLabel>1+ руб</ProgressLabel>
             <span className="discount">Discount: 5%</span>
           </div>
           <div className="discount-info">
-            <LevelImage src="\src\assets\wrappers\img\icons8-медали-64.png" alt="Next Level" />
+            <LevelImage src={`${baseUrl}\\icons8-медали-64.png`} alt="Next Level" />
             <ProgressLabel>25000+ руб</ProgressLabel>
             <span className="discount">Discount: 15%</span>
           </div>
           <div className="discount-info">
-            <LevelImage src="\src\assets\wrappers\img\icons8-медали-64.png" alt="Higher Level" />
+            <LevelImage src={`${baseUrl}\\icons8-медали-64.png`} alt="Higher Level" />
             <ProgressLabel>50000+ руб</ProgressLabel>
             <span className="discount">Discount: 25%</span>
           </div>

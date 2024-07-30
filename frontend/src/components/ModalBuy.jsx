@@ -54,8 +54,9 @@ const Modal = ({ show, onClose, onSubmit, productId, newPrice, name, description
         <Overlay show={show} onClick={onClose} />
         <ModalWrapper show={show}>
         <button class="close-btn" onClick={onClose}>X</button>
-          <div style={{display: 'flex', alignItems: 'center', flexWrap: 'wrap', rowGap: '0.5rem', width: '500px', textOverflow: 'ellipsis'}}><h2>Вы покупаете:</h2> 
-          <p className="product-name">{name}</p></div>
+          <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}><h2 style={{margin: '0 0 15px', fontSize: '24px', textAlign: 'center'}}>Вы покупаете:</h2> 
+          <p className='name-product' style={{martin: '0px', wordBreak: 'break-word', whiteSpace: 'pre-wrap'}}>{name}</p>
+          </div>
           <form onSubmit={handleSubmit} className="form form-center">
             <div>
               <label className="form-label">Quantity:</label>

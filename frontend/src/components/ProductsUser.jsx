@@ -121,7 +121,7 @@ const Products = ({
           <Description display={display}>
             <button className='button-descr' onClick={hanldeModalDesciption}>Подробнее о продукте</button>
           </Description>
-          <img src={image_url} alt="product_img"></img>
+          <img src={image_url || 'https://play-lh.googleusercontent.com/vka7aPgijD-s3jvVMg4afKGvWrEjwBfKEZxiK0Eh9hGpFQt4MRH14Xb2tYON_oABzCpE=w240-h480-rw'} alt="product_img"></img>
         </div>
     </div>
     <div className="product-action" style={percentage ? {justifyContent: 'center'} : {justifyContent : 'space-between'}}>
