@@ -6,7 +6,7 @@ RUN npm install
 COPY . .
 
 COPY --from=itqa47/frontend:latest /app/dist /app/public
-COPY --from=frontend-builder /app/public/img /app/public/img
+COPY --from=frontend:latest /app/public/img /app/public/img
 CMD ["node", "server.js"]
 EXPOSE 3000
 RUN mkdir -p /app/public/uploads
