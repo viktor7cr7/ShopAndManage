@@ -32,7 +32,8 @@ app.use(express.json());
 const port = process.env.PORT || 3005;
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/admin', authenticateAdmin, controlProductAdmin, adminRouter);
-app.use('/api/v1', userRouter, paymentRouter);
+app.use('/api/v1', authenticateUser, userRouter);
+app.use('/api/v1', paymentRouter)
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 app.use(express.static(path.resolve(__dirname, './public')))
