@@ -3,7 +3,7 @@ import { BadRequestError, ErrorFromDataBase } from '../errors/customError.js';
 import { StatusCodes } from 'http-status-codes';
 import { dbConnect, dbConnectAdmin } from '../dbConnect.js';
 import { DOLLAR_EXCHANGE_RATE } from '../utils/constants.js';
-const stripe2 = new stripe(
+const stripe2 = new Stripe(
     'sk_test_51OxrJFP4TSzvaJ7HxOxxXCKRCtw7Q3RlGjl7Ey8Z9xDaTVJ1bsMhuJwHjxJ800rjNnPBZWHjVQJYOgZoE8TGAOGT00JlGum9Ww'
 );
 
