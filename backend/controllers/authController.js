@@ -251,7 +251,7 @@ export async function createAdminUser(req, res, next) {
     const { name, email, password } = req.body;
     const hashedPassword = await hashPasswords(password);
     const verificationToken = crypto.randomBytes(40).toString('hex');
-    const origin = process.env.ORIGIN_URL ? `${process.env.ORIGIN_URL}/verify-email/user` : 'http://localhost:5173/verify-email/admin'
+    const origin = process.env.ORIGIN_URL ? `${process.env.ORIGIN_URL}/verify-email/admin` : 'http://localhost:5173/verify-email/admin'
     try {
         const checkUser = await dbConnectAdmin.oneOrNone('SELECT * from users where email = $1', [email])
         if (checkUser) {
