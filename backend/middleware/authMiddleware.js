@@ -11,7 +11,7 @@ export const authenticateUser = (req, res, next) => {
     const { token } = req.cookies;
 
     if (!token) {
-        throw new UnauthenticatedError('Authentication invalid');
+        throw new UnauthenticatedError('Authentication invalid1');
     }
 
     try {
@@ -19,14 +19,14 @@ export const authenticateUser = (req, res, next) => {
         req.user = { userId, email, name };
         next();
     } catch (error) {
-        throw new UnauthenticatedError('Authentication invalid');
+        throw new UnauthenticatedError('Authentication invalid1');
     }
 };
 
 export const authenticateAdmin = (req, res, next) => {
     const { token } = req.cookies;
     if (!token) {
-        return next(new UnauthenticatedError('Authentication invalid'))
+        return next(new UnauthenticatedError('Authentication invalid1'))
     }
 
     try {
@@ -34,7 +34,7 @@ export const authenticateAdmin = (req, res, next) => {
         req.user = {authorId, authorName, email };
         next();
     } catch (error) {
-        throw new UnauthenticatedError('Authentication invalid');
+        throw new UnauthenticatedError('Authentication invalid1');
     }
 };
 

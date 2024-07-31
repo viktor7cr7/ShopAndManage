@@ -1,13 +1,12 @@
-import Stripe from 'stripe';
+import stripe from 'stripe';
 import { BadRequestError, ErrorFromDataBase } from '../errors/customError.js';
 import { StatusCodes } from 'http-status-codes';
 import { dbConnect, dbConnectAdmin } from '../dbConnect.js';
 import { DOLLAR_EXCHANGE_RATE } from '../utils/constants.js';
-const stripe2 = new Stripe(
+const stripe2 = new stripe(
     'sk_test_51OxrJFP4TSzvaJ7HxOxxXCKRCtw7Q3RlGjl7Ey8Z9xDaTVJ1bsMhuJwHjxJ800rjNnPBZWHjVQJYOgZoE8TGAOGT00JlGum9Ww'
 );
 
-const secretHook = 'whsec_VoUKiRFYixZSCGFEZt62aaqStuOA88yg'
 
 export async function buyProducts(req, res, next) {
     const { items, paymentMethod } = req.body;
@@ -198,17 +197,7 @@ export async function addFundsUseStripe(req, res, next) {
 }
 
 export async function webHook(req, res, next) {
-
-    const sig = req.headers['stripe-signature'];
-
-    let event;
-
-    try {
-        event = Stripe.webhooks.constructEvent(req.body, sig, secretHook);
-    } catch (err) {
-        console.log(`⚠️  Webhook signature verification failed.`, err.message);
-        return res.status(400).send(`Webhook Error: ${err.message}`);
-    }
+    const event = req.body;
     switch (event.type) {
         case 'checkout.session.completed':
             const session = event.data.object;
@@ -220,7 +209,9 @@ export async function webHook(req, res, next) {
             const transactionId = session.metadata.id_transaction;
             const amountAddFunds = session.metadata.amountConvertRuble;
             const userId = session.metadata.userId;
-
+            console.log(transactionId)
+            console.log(amountAddFunds)
+            console.log(userId)
             try {
                 if (typePayment === 'products_buy') {
                     await dbConnect.query(
@@ -253,6 +244,7 @@ export async function webHook(req, res, next) {
                 }
 
                 if (typePayment === 'balance_top_up') {
+                    console.log('sin in balance top up')
                     await dbConnect.none(
                         'UPDATE balances SET amount = amount + $1 where user_id = $2',
                         [+amountAddFunds, userId]
