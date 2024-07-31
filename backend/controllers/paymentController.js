@@ -1,4 +1,4 @@
-import stripe from 'stripe';
+import Stripe from 'stripe';
 import { BadRequestError, ErrorFromDataBase } from '../errors/customError.js';
 import { StatusCodes } from 'http-status-codes';
 import { dbConnect, dbConnectAdmin } from '../dbConnect.js';
@@ -204,7 +204,7 @@ export async function webHook(req, res, next) {
     let event;
 
     try {
-        event = stripe.webhooks.constructEvent(req.body, sig, secretHook);
+        event = Stripe.webhooks.constructEvent(req.body, sig, secretHook);
     } catch (err) {
         console.log(`⚠️  Webhook signature verification failed.`, err.message);
         return res.status(400).send(`Webhook Error: ${err.message}`);
