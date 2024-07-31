@@ -14,8 +14,8 @@ export const action = async({request, params}) => {
         endpoint = '/auth/admin/login'
         redirectPath = '/dashboard/admin'
       } else {
-        endpoint = '/auth/login222'
-        redirectPath = '/dashboard/user'
+        endpoint = '/auth/login'
+        redirectPath = '/dashboard/user/all-products'
       }
 
     try {
