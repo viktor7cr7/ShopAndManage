@@ -20,12 +20,17 @@ export const validateRegisterUser = withValidationErrors([
         .isEmail()
         .withMessage('Пожалуйста, введите корректный email')
         .notEmpty()
-        .withMessage('email обязателен для заполнения'),
+        .withMessage('Email обязателен для заполнения'),
     body('password')
         .isLength({ min: 8 })
         .withMessage('Пароль должен содержать минимум 8 символов')
         .notEmpty()
-        .withMessage('пароль обязателен для заполнения'),
+        .withMessage('Пароль обязателен для заполнения'),
+    body('name')
+        .isLength({ min: 2 })
+        .withMessage('Имя должно содержать минимум 2 символа')
+        .notEmpty()
+        .withMessage('Имя обязателно для заполнения'),
 ]);
 
 export const validateLoginUser = withValidationErrors([
@@ -33,12 +38,12 @@ export const validateLoginUser = withValidationErrors([
         .isEmail()
         .withMessage('Пожалуйста, введите корректный email')
         .notEmpty()
-        .withMessage('email обязателен для заполнения'),
+        .withMessage('Email обязателен для заполнения'),
     body('password')
         .isLength({ min: 8 })
         .withMessage('Пароль должен содержать минимум 8 символов')
         .notEmpty()
-        .withMessage('пароль обязателен для заполнения'),
+        .withMessage('Пароль обязателен для заполнения'),
 ]);
 
 export const validateUserAdminRegister = withValidationErrors([
@@ -46,17 +51,17 @@ export const validateUserAdminRegister = withValidationErrors([
         .isEmail()
         .withMessage('Пожалуйста, введите корректный email')
         .notEmpty()
-        .withMessage('email обязателен для заполнения'),
+        .withMessage('Email обязателен для заполнения'),
     body('password')
         .isLength({ min: 8 })
         .withMessage('Пароль должен содержать минимум 8 символов')
         .notEmpty()
-        .withMessage('пароль обязателен для заполнения'),
+        .withMessage('Пароль обязателен для заполнения'),
     body('name')
         .isLength({ min: 2 })
-        .withMessage('Длинна должна быть не менее двух символов')
+        .withMessage('Имя должно содержать минимум 2 символа')
         .notEmpty()
-        .withMessage('автор обязателен для заполнения'),
+        .withMessage('Имя обязателно для заполнения'),
 ]);
 
 export const validateUserAdminSystemLogin = withValidationErrors([
@@ -64,8 +69,12 @@ export const validateUserAdminSystemLogin = withValidationErrors([
         .isEmail()
         .withMessage('Пожалуйста, введите корректный email')
         .notEmpty()
-        .withMessage('email обязателен для заполнения'),
-    body('password').notEmpty().withMessage('пароль обязателен для заполнения'),
+        .withMessage('Email обязателен для заполнения'),
+    body('password')
+        .isLength({ min: 8 })
+        .withMessage('Пароль должен содержать минимум 8 символов')
+        .notEmpty()
+        .withMessage('Пароль обязателен для заполнения'),
 ]);
 
 export const validateCreateAdminProduct = withValidationErrors([

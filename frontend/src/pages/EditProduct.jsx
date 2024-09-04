@@ -28,7 +28,7 @@ export const action = async ({request,params}) => {
 
   try {
     await customFetch.patch(`admin/product/${params.id}`, formData)
-    toast.success('Product edited successfully')
+    toast.success('Данные успешно обновлены')
     return redirect('/dashboard/admin/all-products')
   } catch (error) {
     return toast.error(error?.response?.data?.msg)
@@ -44,15 +44,16 @@ const EditJob = () => {
       <Form method='post' className='form' encType='multipart/form-data' >
         <h4 className='form-title'>edit product</h4>
         <div className='form-center'>
-          <FormRow type='text' name='name' defaultValue={product.name}></FormRow>
-          <FormRow type='number' name='price' min={'0'} defaultValue={product.old_price}></FormRow>
+          <FormRow type='text' name='name' defaultValue={product.name} id='name'></FormRow>
+          <FormRow type='number' name='price' min={'0'} defaultValue={product.old_price} id='price'></FormRow>
           <FormRowSelect
             name='category'
+            id='category'
             labelText='product category'
             defaultValue={product.category}
             list={Object.values(PRODUCT_CATEGORY)}> 
           </FormRowSelect>
-          <FormRow type='number' min={'0'} name='stock_quantity' labelText={'quantity'} defaultValue={product.stock_quantity}></FormRow>
+          <FormRow type='number' min={'0'} name='stock_quantity' labelText={'quantity'} defaultValue={product.stock_quantity} id='quantity'></FormRow>
           <div className='form-row'>
           <label htmlFor='image' className='form-label'>
             Select an image file (max 0.5 MB):
@@ -69,7 +70,7 @@ const EditJob = () => {
         <label htmlFor={name} className='form-label'>desctiption</label>
                 <textarea style={{ height: '100px' }} type='text'
                 id='description'
-                name='desrtiption'
+                name='description'
                 className='form-input'
                 defaultValue={product.description}
                 required>

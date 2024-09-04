@@ -23,7 +23,7 @@ const Modal = ({ show, onClose, onSubmit, productId, newPrice, name, description
             return {
                 ...prevData,
                 [name]: value,
-                totalPrice: Math.round(newQunatity * newPrice)
+                totalPrice: newQunatity * newPrice
             }
         })
     }
@@ -52,7 +52,7 @@ const Modal = ({ show, onClose, onSubmit, productId, newPrice, name, description
     return (
       <>
         <Overlay show={show} onClick={onClose} />
-        <ModalWrapper show={show}>
+        <ModalWrapper show={show} className="modal-buy">
         <button class="close-btn" onClick={onClose}>X</button>
           <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}><h2 style={{margin: '0 0 15px', fontSize: '24px', textAlign: 'center'}}>Вы покупаете:</h2> 
           <p className='name-product' style={{martin: '0px', wordBreak: 'break-word', whiteSpace: 'pre-wrap'}}>{name}</p>
@@ -63,6 +63,7 @@ const Modal = ({ show, onClose, onSubmit, productId, newPrice, name, description
               <input
                 type="number"
                 name="quantity"
+                id='product-quantity'
                 value={formData.quantity}
                 onChange={handleChange}
                 min="1"
@@ -73,6 +74,7 @@ const Modal = ({ show, onClose, onSubmit, productId, newPrice, name, description
               <label className="form-label">Payment Method:</label>
               <select
                 className="form-select"
+                id='payment-method'
                 value={formData.paymentMethod}
                 onChange={handleChange}
                 name="paymentMethod"

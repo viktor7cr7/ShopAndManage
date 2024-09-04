@@ -59,7 +59,7 @@ export const Stats = () => {
   return (
     <Wrapper>
     <StatsContainer totalQuantity={qunatityOrders}></StatsContainer>
-    <ResponsiveContainer width="100%" height={400}>
+    <ResponsiveContainer width="100%" height={400} className='stats-container'>
       <BarChart data={statsResult}>
         <XAxis dataKey="date" />
         <YAxis />

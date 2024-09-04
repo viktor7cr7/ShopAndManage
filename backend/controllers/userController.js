@@ -46,7 +46,7 @@ export async function getAllUserProducts(req, res, next) {
         FROM products p
         LEFT JOIN discounts d ON p.product_id = d.product_id AND NOW() >= d.start_date AND NOW() <= d.end_date
         ${filtersQuery}
-        ${orderBy}
+        ${orderBy || 'ORDER BY p.product_id'}
       )
       SELECT 
         (SELECT COUNT(*) FROM filtered_products WHERE 1=1 ${rangeFilter}) AS total_products,
@@ -166,7 +166,7 @@ export async function getItems(req,res,next) {
 export async function getCurrentUser (req, res, next)  {
     const {userId} = req.user
     try {
-      const user = await dbConnect.one('SELECT u.id, u.image_url, u.email, b.amount from users u INNER JOIN balances b ON u.id = b.user_id where u.id = $1', [userId])
+      const user = await dbConnect.one('SELECT u.name, u.id, u.image_url, u.email, b.amount from users u INNER JOIN balances b ON u.id = b.user_id where u.id = $1', [userId])
       res.status(StatusCodes.OK).json({user})
     } catch (error) {
       return next (new ErrorFromDataBase(error.message))

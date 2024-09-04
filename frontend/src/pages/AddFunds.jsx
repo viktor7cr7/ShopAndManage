@@ -64,7 +64,7 @@ const AddFunds = () => {
         <FaRegCreditCard style={{}}></FaRegCreditCard>
             <h4 style={{fontSize: '1.5rem', fontWeight: 'bold'}}>Credit Card</h4>
         </div>
-        <FormRow labelText={'Amount USD'} min={'5'} type={'number'} required={true} onChange={(e) => changeCost(e.target.value)} name={'amount'}></FormRow>
+        <FormRow id='amount' labelText={'Amount USD'} min={'5'} type={'number'} required={true} onChange={(e) => changeCost(e.target.value)} name={'amount'}></FormRow>
         <div className="modal-header">
             <div className="total-price">
                 <span>Итого к оплате:</span>

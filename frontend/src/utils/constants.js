@@ -13,7 +13,7 @@ export const PRODUCT_CATEGORY = [
 ];
 
 export const PRODUCT_STATUS = {
-    avaliable: 'avaliable',
+    avaliable: 'available',
     ended: 'ended'
 };
 

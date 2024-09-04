@@ -11,7 +11,7 @@ export const CartItemWrapper = styled.div`
     margin-right: 5px;
   }
 
-  .btn-action {
+  .btn-action, .edit-quantity {
     height: 48px;
     min-width: 50px;
     background-color: rgb(255, 233, 255);

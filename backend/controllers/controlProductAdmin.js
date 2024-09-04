@@ -7,6 +7,7 @@ import {promises as fs} from 'fs'
 export async function createProduct(req, res, next) {
   const { name, price, description, category, stock_quantity} = req.body;
   const { authorId, authorName } = req.user;
+  console.log(req.file)
   const dataImage= {}
   if (req.file) {
     const response = await cloudinary.v2.uploader.upload(req.file.path)
@@ -171,7 +172,7 @@ export async function getAllProduct(req, res, next) {
         FROM products p
         LEFT JOIN discounts d ON p.product_id = d.product_id AND NOW() >= d.start_date AND NOW() <= d.end_date
         ${filtersQuery}
-        ${orderBy}
+        ${orderBy || ' ORDER BY p.product_id ASC'}
       )
       SELECT 
         (SELECT COUNT(*) FROM filtered_products) AS total_products,

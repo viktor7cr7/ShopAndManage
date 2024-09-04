@@ -41,7 +41,7 @@ const AboutOrder = () => {
         <OrderId>ID: {order.order_id}</OrderId>
         <OrderStatus>Status: {order.status}</OrderStatus>
       </OrderHeader>
-      <OrderContent>
+      <OrderContent className='item-content'>
         <TotalPrice>Total Price: ₽ {convertPrice(order.total_price)}</TotalPrice>
         <CreatedAt>Created At: {new Date(order.created_at).toLocaleDateString()}</CreatedAt>
         <ItemsWrapper>

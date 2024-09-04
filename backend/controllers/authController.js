@@ -24,7 +24,7 @@ export async function createUser(req, res, next) {
         const checkUser = await dbConnect.oneOrNone('SELECT id, isverified from users where email = $1', [email])
 
         if (checkUser) {
-            return next(new BadRequestError('Пользователь с данным email уже зарегестрирован'))
+            return next(new BadRequestError('Пользователь с данным email уже зарегистрирован'))
         }
 
         const result = await dbConnect.tx(async (t) => {
@@ -255,7 +255,7 @@ export async function createAdminUser(req, res, next) {
     try {
         const checkUser = await dbConnectAdmin.oneOrNone('SELECT * from users where email = $1', [email])
         if (checkUser) {
-            return next(new BadRequestError('Пользователь с данным email уже зарегестрирован'));
+            return next(new BadRequestError('Пользователь с данным email уже зарегистрирован'));
         }
         const user = await dbConnectAdmin.one(
             'INSERT INTO users(name, email, password, verificationtoken) VALUES($1, $2, $3, $4) RETURNING name, email, password',
@@ -287,7 +287,7 @@ export const verifyEmailAdmin = async (req, res, next) => {
 
     await dbConnectAdmin.none('UPDATE users SET verificationtoken = $1, verified = $2, isverified = $3', ['', new Date(), true])
   
-    res.status(StatusCodes.OK).json({ msg: 'Успех' });
+    res.status(StatusCodes.OK).json({ msg: 'Email Verified' });
   };
 
 export async function loginUserAdmin(req, res, next) {

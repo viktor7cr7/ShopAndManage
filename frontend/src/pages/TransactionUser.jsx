@@ -22,6 +22,7 @@ const columns = [
     {
       Header: 'Amount',
       accessor: 'amount',
+      Cell: ({ value }) => formatPrice(value) + ' RUB', // Форматируем при отображении
     },
     {
       Header: 'Status',
@@ -41,7 +42,7 @@ const columns = [
     const data = useMemo(() => 
     transactionItems.map((element) => ({
       ...element, 
-      amount: formatPrice(element.amount) + ' RUB',
+      amount: element.amount,
       created_at: new Date(element.created_at).toLocaleDateString('en-US', { 
         year: 'numeric', 
         month: '2-digit', 

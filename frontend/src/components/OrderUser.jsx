@@ -5,15 +5,15 @@ import formatPrice from '../utils/formatPrice';
 
 const OrderCard = ({ order }) => {
   return (
-    <Card>
+    <Card className='order-item'>
       <OrderHeader>
-        <OrderId>ID: {order.order_id}</OrderId>
-        <OrderStatus>Status: {order.status}</OrderStatus>
+        <OrderId className='order-id'>ID: {order.order_id}</OrderId>
+        <OrderStatus className='order-status'>Status: {order.status}</OrderStatus>
       </OrderHeader>
       <OrderContent>
-        <TotalPrice>Total Price: ₽ {formatPrice(order.total_price)}</TotalPrice>
-        <CreatedAt>Created At: {new Date(order.created_at).toLocaleDateString()}</CreatedAt>
-        <Link to={`/dashboard/user/orders/${order.order_id}`}>
+        <TotalPrice className='order-price'>Total Price: ₽ {formatPrice(order.total_price)}</TotalPrice>
+        <CreatedAt className='order-created'>Created At: {new Date(order.created_at).toLocaleDateString()}</CreatedAt>
+        <Link className='order-detail' to={`/dashboard/user/orders/${order.order_id}`}>
           <ViewDetailsButton>View Details</ViewDetailsButton>
         </Link>
       </OrderContent>

@@ -8,8 +8,8 @@ import {
 import { verifyJWT } from '../utils/tokenUtils.js';
 
 export const authenticateUser = (req, res, next) => {
+    console.log(req.cookies)
     const { token } = req.cookies;
-
     if (!token) {
         throw new UnauthenticatedError('Authentication invalid1');
     }
@@ -19,14 +19,14 @@ export const authenticateUser = (req, res, next) => {
         req.user = { userId, email, name };
         next();
     } catch (error) {
-        throw new UnauthenticatedError('Authentication invalid1');
+        throw new UnauthenticatedError('Authentication invalid2');
     }
 };
 
 export const authenticateAdmin = (req, res, next) => {
     const { token } = req.cookies;
     if (!token) {
-        return next(new UnauthenticatedError('Authentication invalid1'))
+        return next(new UnauthenticatedError('Authentication invalid'))
     }
 
     try {

@@ -11,7 +11,7 @@ export const action = async({request}) => {
     let endpoint, redirectPath 
     if (userType === 'admin') {
         endpoint = '/auth/admin/login'
-        redirectPath = '/dashboard/admin'
+        redirectPath = '/dashboard/admin/add-product'
       } else {
         endpoint = '/auth/login'
         redirectPath = '/dashboard/user/all-products'
@@ -33,30 +33,30 @@ const Landing = () => {
             <>
             <div className="container">
         <div className="section left">
-            <h2>Market Shop</h2>
+            <h2 className="title-shop">Market Shop</h2>
             <p>Здесь вы можете делать покупки и отслеживать свои заказы.</p>
             <Form method="post">
             <input type='hidden' name='userType' value='user'></input>
             <FormRow type={'email'} id={'shop-email'} name={'email'} labelText={'Email:'} required={true}></FormRow>
             <FormRow type={'password'} id={'shop-password'} name={'password'} labelText={'Password:'}></FormRow>
             <div className="action-btn">
-            <button type="submit" className="btn">Войти</button>
-                <Link to="/register/user" type="button" className="btn">Регистрация</Link>
-                <Link to="forgot-password/user" type="button" className="btn">Забыли пароль?</Link>
+            <button type="submit" className="btn" id='user-login-button'>Войти</button>
+                <Link to="/register/user" type="button" className="btn" id='user-register'>Регистрация</Link>
+                <Link to="forgot-password/user" type="button" className="btn" id='user-forgot-password'>Забыли пароль?</Link>
             </div>
             </Form>
         </div>
         <div className="section right">
-            <h2>Admin Panel</h2>
+            <h2 className="title-admin-panel">Admin Panel</h2>
             <p>Здесь вы можете управлять продуктами и отслеживать заказы.</p>
             <Form method="post">
             <input type='hidden' name='userType' value='admin'></input>
             <FormRow type={'email'} id={'admin-email'} name={'email'} labelText={'Email:'} required={true}></FormRow>
             <FormRow type={'password'} id={'admin-password'} name={'password'} labelText={'Password:'}></FormRow>
              <div className="action-btn">
-             <button type="submit" className="btn">Войти</button>
-                <Link to='/register/admin' type="button" className="btn">Регистрация</Link>
-                <Link to="forgot-password/admin" type="button" className="btn">Забыли пароль?</Link>
+             <button type="submit" className="btn" id="admin-login-button">Войти</button>
+                <Link to='/register/admin' type="button" className="btn" id='admin-register'>Регистрация</Link>
+                <Link to="forgot-password/admin" type="button" className="btn" id='admin-forgot-password'>Забыли пароль?</Link>
              </div>
             </Form>
         </div>

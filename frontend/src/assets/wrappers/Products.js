@@ -63,7 +63,7 @@ const Wrapper = styled.article`
       grid-template-columns: 1fr 1fr;
     }
   }
-  .status {
+  .product-status {
     border-radius: var(--border-radius);
     text-transform: capitalize;
     letter-spacing: var(--letter-spacing);

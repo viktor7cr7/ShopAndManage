@@ -54,31 +54,32 @@ const FiltersShop = () => {
     return (
       <Wrapper>
       <Form className='form'>
-        <div className="form-center grid-container">
-          <FormRow type='search' name='search'  defaultValue={search}
+        <div className="form-center grid-container" id="filters">
+          <FormRow type='search' name='search' id='filter-search' defaultValue={search}
           onChange={debounce((form) =>{submit(form)})}
           required={false}></FormRow>
-        <FormRowSelect name={'category'} list={['All', ...PRODUCT_CATEGORY]}
+        <FormRowSelect id='filter-category' name={'category'} list={['All', ...PRODUCT_CATEGORY]}
         onChange={(e) => submit(e.currentTarget.form)}></FormRowSelect>
-        <FormRowSelect name='Sort by price'
+        <FormRowSelect id='sort-price' name='Sort by price'
         list={['Не выбрано', ...sortOptions.price]}
         value={priceSort}
         onChange={(e) => handleSortChange(e, setPriceSort)}></FormRowSelect>
          <FormRowSelect name='Sort by rating'
+        id='sort-rating'
         list={['Не выбрано', ...sortOptions.rating]}
         value={ratingSort}
         onChange={(e) => handleSortChange(e, setRatingSort)}></FormRowSelect>
         <input type="hidden" name="sort" value={`price:${priceSort},rating:${ratingSort}`} />
         <WrapperRange>
-        <button type="button" className="bth-action" onClick={() => setShowPriceRange(!showPriceRange)}>
+        <button type="button" className={`bth-action ${showPriceRange ? 'show-range' : 'hidden-range'}`} onClick={() => setShowPriceRange(!showPriceRange)}>
         {showPriceRange ? 'Hide Price Range' : 'Show Price Range'}
       </button>
       {showPriceRange && (
         <>
-          <PriceRange values={values} setValues={setValues} min={min} max={max} />
+          <PriceRange values={values} setValues={setValues} min={min} max={max}/>
           <input type="hidden" name="minPrice" value={values[0]} />
             <input type="hidden" name="maxPrice" value={values[1]} />
-          <button type="button" className="btn-range" onClick={(e) => submit(e.currentTarget.form)}>
+          <button type="button" className="btn-apply" onClick={(e) => submit(e.currentTarget.form)}>
             Apply
           </button>
         </>

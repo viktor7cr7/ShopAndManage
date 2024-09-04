@@ -113,7 +113,7 @@ export async function buyProducts(req, res, next) {
             res.status(StatusCodes.OK).json({ session });
             break;
             case 'Balance':
-                    const totalCost = items.reduce((acc, item) => acc + (item.totalPrice || item.price), 0)
+                    const totalCost = items.reduce((acc, item) => acc + (item.totalPrice || item.price * item.quantity), 0)
                     await dbConnect.tx(async (t) => {
                     await t.none('UPDATE balances SET amount = amount - $1 where user_id = $2', [totalCost, userId])
                     await t.query(
@@ -144,7 +144,7 @@ export async function buyProducts(req, res, next) {
 
                     await t.none('DROP TABLE temp_product_update');
                 });
-                res.status(StatusCodes.OK).json({msg: 'успех', success_url: process.env.ORIGIN_URL ? `${process.env.ORIGIN_URL}/dashboard/user/orders` : 'http://localhost:5173/dashboard/user/orders'});
+                res.status(StatusCodes.OK).json({msg: 'Успех', success_url: process.env.ORIGIN_URL ? `${process.env.ORIGIN_URL}/dashboard/user/orders` : 'http://localhost:5173/dashboard/user/orders'});
                 break;
     }
 }
@@ -179,7 +179,7 @@ export async function addFundsUseStripe(req, res, next) {
                 },
             ],
             mode: 'payment',
-            success_url: process.env.ORIGIN_URL ? `${process.env.ORIGIN_URL}/dashboard/user/all-products` : 'http://localhost:5173/dashboard/user/all-products',
+            success_url: process.env.ORIGIN_URL ? `${process.env.ORIGIN_URL}/dashboard/user/transaction` : 'http://localhost:5173/dashboard/user/transaction',
             cancel_url: process.env.ORIGIN_URL ? `${process.env.ORIGIN_URL}/dashboard/user/add-funds` : 'http://localhost:5173/dashboard/user/add-funds',
             metadata: {
                 userId,
@@ -198,10 +198,10 @@ export async function addFundsUseStripe(req, res, next) {
 
 export async function webHook(req, res, next) {
     const event = req.body;
+    console.log(event)
     switch (event.type) {
         case 'checkout.session.completed':
             const session = event.data.object;
-
             const orderId = session.metadata.orderId;
             const typePayment = session.metadata.type;
             const infoQuntityAndIdProduct =
@@ -209,9 +209,9 @@ export async function webHook(req, res, next) {
             const transactionId = session.metadata.id_transaction;
             const amountAddFunds = session.metadata.amountConvertRuble;
             const userId = session.metadata.userId;
-            console.log(transactionId)
-            console.log(amountAddFunds)
-            console.log(userId)
+            console.log(orderId)
+            console.log(typePayment)
+            console.log(infoQuntityAndIdProduct)
             try {
                 if (typePayment === 'products_buy') {
                     await dbConnect.query(

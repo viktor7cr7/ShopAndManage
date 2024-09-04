@@ -19,7 +19,7 @@ export const action = async({request, params}) => {
 
   try {
     await customFetch.post(endpoint,data)
-    toast.success('Registartion successful')
+    toast.success('Успешная регистрация!')
     return redirect(redirectPath)
   } catch (error) {
     return toast.error(error?.response?.data?.msg)
@@ -36,16 +36,16 @@ const Register = () => {
             <div>
             <Form method='post' className='form'>
              <h4>{type === 'admin' ? 'Admin Register' : 'User Register'}</h4>
-            <FormRow type='text' name='name' required={true}></FormRow>
-            <FormRow type='email' name='email' required={true}></FormRow>
-            <FormRow type='password' name='password' required={true}></FormRow>
+            <FormRow type='text' name='name' required={true} id='input-name'></FormRow>
+            <FormRow type='email' name='email' required={true} id='input-email'></FormRow>
+            <FormRow type='password' name='password' required={true} id='input-password'></FormRow>
             <p>
                 У вас уже есть аккаунт?
                 <Link to={type === 'admin' ? '/login/admin' : '/login/user'} className='login-link'>
                 Войти
                 </Link>
             </p>
-            <button type='sumbit' className='btn btn-block' disabled={isSubmitting}>
+            <button type='sumbit' className='btn btn-block' disabled={isSubmitting} id='btn-register'>
               {isSubmitting ? 'submitting' : 'submit'}
             </button>
         </Form>

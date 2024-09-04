@@ -31,11 +31,11 @@ const AddJob = () => {
     <Wrapper>
       <Form method='post' className='form' encType='multipart/form-data'>
         <h4 className='form-title'></h4>
-        <div className='form-center'>
-          <FormRow type='text' name='name' required={true}></FormRow>
-          <FormRow type='number' name='price' required={true} min={1}></FormRow>
-          <FormRow type='text' name='description' required={true} minLength={10}></FormRow>
-          <FormRowSelect name={'category'} list={PRODUCT_CATEGORY}></FormRowSelect>
+        <div className='form-center form-filters'>
+          <FormRow type='text' name='name' required={true} id='name'></FormRow>
+          <FormRow type='number' name='price' required={true} min={1} id='price'></FormRow>
+          <FormRow type='text' name='description' required={true} minLength={10} id='description'></FormRow>
+          <FormRowSelect name={'category'} list={PRODUCT_CATEGORY} id='category'></FormRowSelect>
           <div className='form-row'>
           <label htmlFor='image' className='form-label'>
             Select an image file (max 0.5 MB):
@@ -48,7 +48,7 @@ const AddJob = () => {
             accept='image/*'
           />
         </div>
-          <FormRow type='text' name='stock_quantity' labelText={'quantity'}></FormRow>
+          <FormRow type='text' name='stock_quantity' labelText={'quantity'} id='quantity'></FormRow>
           <button type='submit' className='btn btn-block form-btn'
           disabled={isSubmitting}>{isSubmitting ? 'submitting' : 'submit'}</button>
         </div> 

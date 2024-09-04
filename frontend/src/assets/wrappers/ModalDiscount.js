@@ -36,6 +36,14 @@ const Wrapper = styled.aside`
   
   .modal.show {
     display: flex;
-  }`
+  }
+  
+  .blocked-day {
+    color: #ccc;
+  pointer-events: none;
+  background-color: #f0f0f0;
+  cursor: not-allowed;
+  }
+  `
 
   export default Wrapper;

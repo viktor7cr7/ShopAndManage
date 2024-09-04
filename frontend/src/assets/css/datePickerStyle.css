@@ -80,8 +80,3 @@
     background-color: gold;
     color: #fff;
   }
-  
-  .react-datepicker__day--today {
-    font-weight: bold;
-    color:magenta;
-  }

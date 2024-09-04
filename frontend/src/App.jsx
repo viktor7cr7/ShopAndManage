@@ -105,6 +105,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
+            path: 'add-product',
             element: <AddProduct></AddProduct>,
             action: actionAddProduct,
           },

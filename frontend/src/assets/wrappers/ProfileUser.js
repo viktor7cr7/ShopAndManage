@@ -31,7 +31,7 @@ const Wrapper = styled.section`
     place-items: center;
   }
 
-  .grades-header {
+  .grades-header, .my-grades {
     padding-left: 5px;
     border-radius: 5px;
     background-color: #199de1;

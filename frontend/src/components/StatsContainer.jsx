@@ -14,7 +14,7 @@ const StatsContainer = ({totalQuantity}) => {
     },
   ]
   return (
-    <Wrapper>
+    <Wrapper className='header-container'>
         {state.map((item) => {
             return <StateItem key={item.title} {...item}></StateItem>
         })}

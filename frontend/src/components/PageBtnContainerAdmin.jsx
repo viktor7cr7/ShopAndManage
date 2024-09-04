@@ -75,14 +75,13 @@ const PageBtnContainer = () => {
         <div className="btn-container">
             {renderPageButtons()}
         </div>
-        <button className="btn next-btn">
         <button className="btn next-btn"
             onClick={() => {
                 let nextPage = currentPage + 1
                 if(nextPage > numOfPages) nextPage = 1
                 handlePageChange(nextPage)
             }}>next
-            <HiChevronDoubleRight></HiChevronDoubleRight></button>
+            <HiChevronDoubleRight></HiChevronDoubleRight>
         </button>
     </Wrapper>
   )

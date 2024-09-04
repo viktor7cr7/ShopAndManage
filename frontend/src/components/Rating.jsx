@@ -10,7 +10,7 @@ const StarRating = ({ rating }) => {
 
   return (
     <Wrapper>
-        <div className="star-rating">
+        <div className="star-rating" data-rating={`${rating}`}>
       {[...Array(filledStars)].map((_, index) => (
         <FontAwesomeIcon key={index} icon={solidStar} />
       ))}

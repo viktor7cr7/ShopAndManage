@@ -12,7 +12,7 @@ export const action = async({request, params}) => {
     let endpoint, redirectPath 
     if (type === 'admin') {
         endpoint = '/auth/admin/login'
-        redirectPath = '/dashboard/admin'
+        redirectPath = '/dashboard/admin/add-product'
       } else {
         endpoint = '/auth/login'
         redirectPath = '/dashboard/user/all-products'

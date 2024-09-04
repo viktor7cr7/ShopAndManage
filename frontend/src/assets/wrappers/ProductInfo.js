@@ -12,7 +12,7 @@ const Wrapper = styled.div`
       color: var(--text-secondary-color);
     }
   }
-  .products-text {
+  .product-quantity, .product-date {
     text-transform: capitalize;
     letter-spacing: var(--letter-spacing);
   }

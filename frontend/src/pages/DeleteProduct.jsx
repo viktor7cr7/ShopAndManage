@@ -5,7 +5,7 @@ import {toast} from 'react-toastify'
 export const action = async({params}) => {
   try {
     await customFetch.delete(`/admin/product/${params.id}`)
-    toast.success('Product delete success')
+    toast.success('Продукт успешно удалён')
   } catch (error) {
     return toast.error(error?.response?.data?.msg) 
   }

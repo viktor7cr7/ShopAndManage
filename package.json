@@ -1,0 +1,33 @@
+{
+  "name": "api-market",
+  "version": "1.0.0",
+  "description": "",
+  "main": "playwright.config.js",
+  "type": "module",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "playwright test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/viktor7cr7/ShopAndManage.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/viktor7cr7/ShopAndManage/issues"
+  },
+  "homepage": "https://github.com/viktor7cr7/ShopAndManage#readme",
+  "dependencies": {
+    "@playwright/test": "^1.45.3",
+    "axios": "^1.7.5",
+    "dotenv": "^16.4.5",
+    "form-data": "^4.0.0",
+    "imap": "^0.8.19",
+    "mailparser": "^3.7.1",
+    "playwright": "^1.45.3"
+  }
+}

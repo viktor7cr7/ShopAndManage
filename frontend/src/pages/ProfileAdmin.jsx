@@ -46,8 +46,8 @@ const Profile = () => {
             accept='image/*'
           />
         </div>
-        <FormRow type='text' name='name' defaultValue={name} />
-        <FormRow type='email' name='email' defaultValue={email} />
+        <FormRow type='text' name='name' defaultValue={name} id='name'/>
+        <FormRow type='email' name='email' defaultValue={email} id='email' />
         <input type='hidden' name='author_id' value={author_id}></input>
         <button
           className='btn btn-block form-btn'

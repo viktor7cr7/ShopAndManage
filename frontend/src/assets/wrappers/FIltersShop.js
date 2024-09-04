@@ -38,7 +38,7 @@ const Wrapper = styled.section`
     cursor: pointer;
 }
 
-  .btn-range {
+  .btn-apply {
     border: none;
     background-color: #199de1;
     color: #fff;

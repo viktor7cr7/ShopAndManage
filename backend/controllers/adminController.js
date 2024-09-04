@@ -51,7 +51,7 @@ export async function updateAdminInfo(req, res, next) {
 }
 
 export async function getOrdersForAdmin(req, res, next) {
-  const {authorId} = req.body
+  const {authorId} = req.user
   try {
     const orderQuery = `
       SELECT o.created_at, oi.product_id, SUM(oi.quantity) as quantity 
@@ -65,21 +65,22 @@ export async function getOrdersForAdmin(req, res, next) {
 
     
     const productIds = ordersResult.map(row => row.product_id);
-
+    console.log(authorId)
     if (productIds.length === 0) {
       return res.status(StatusCodes.OK).json({statsOrders: [], totalQuantity: 0})
     }
+
+    const productQuery = `
+    SELECT product_id, author_id 
+    FROM products 
+    WHERE author_id = $1 AND product_id IN ($2:csv)`;
+
+  const productsResult = await dbConnectAdmin.any(productQuery, [authorId, productIds]);
 
     const filteredOrders = ordersResult.filter(order =>
       productsResult.some(product => product.product_id === order.product_id)
     );
     
-    const productQuery = `
-      SELECT product_id, author_id 
-      FROM products 
-      WHERE author_id = $1 AND product_id IN ($2:csv)`;
-
-    const productsResult = await dbConnectAdmin.any(productQuery, [4, productIds]);
 
     const totalQuantity = filteredOrders.reduce((acc, item) => acc + +item.quantity, 0)
 

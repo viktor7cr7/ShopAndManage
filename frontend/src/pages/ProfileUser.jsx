@@ -37,7 +37,7 @@ export const action = async ({request}) => {
   
   const Profile = () => {
       const { user } = useOutletContext();
-      const {email, userId } = user;
+      const {email, userId, name } = user;
       const navigation = useNavigation();
       const discount = useDiscount()
       const {totalAmount} = useLoaderData()
@@ -78,10 +78,12 @@ export const action = async ({request}) => {
               accept='image/*'
             />
           </div>
-          <FormRow type='email' name='email' defaultValue={email} />
+          <FormRow type='name' name='name' defaultValue={name} id='name'/>
+          <FormRow type='email' name='email' defaultValue={email} id='email'/>
           <input type='hidden' name='author_id' value={userId}></input>
           <button
             className='btn btn-block form-btn'
+            id='saveChanges'
             disabled={isSubmitting}
           >
             {isSubmitting ? 'submitting...' : 'save changes'}
@@ -91,11 +93,11 @@ export const action = async ({request}) => {
       <div className="grades-container">
             <div className="grades-header">Grages</div>
             <ProgressBar amount={infoGrade.summAmount}></ProgressBar>
-            <div className="grades-header">My grades</div>
+            <div className="my-grades">My grades</div>
             <div className="info-grades">
                 <div className="info-text">Ваша сумма покупок: <span className="info-value">{infoGrade.summAmount} руб</span></div>
                 <div className="info-text">Ваш уровень: <span className="info-value">{infoGrade.currentLevel}</span></div>
-                <div className="info-text">До следующего уровня: <span className="info-value">{infoGrade.nextPriceLevel} руб</span></div>
+                <div className="info-text">До следующего уровня: <span className="info-value">{infoGrade.summAmount >= 50000 ? infoGrade.nextPriceLevel : infoGrade.nextPriceLevel + ' руб'}</span></div>
                 <div className="info-text">Персональная скидка на все товары: <span className="info-value-discount">{discount}%</span></div>
             </div>
         </div>

@@ -15,7 +15,7 @@ const ProductsContainer = () => {
   }
   return (
     <Wrapper>
-      <h5>
+      <h5 className='count-product-search'>
         {totalProducts} товаров{totalProducts.length > 1} найдено
       </h5>
         <div className='products'>

@@ -12,7 +12,7 @@ const PriceRange = ({ values, setValues, min, max }) => (
       values={values}
       onChange={(values) => setValues(values)}
       renderTrack={({ props, children }) => (
-        <Track {...props} min={min} max={max} values={values}>
+        <Track {...props} min={min} max={max} values={values} className="track-values">
           {children}
         </Track>
       )}

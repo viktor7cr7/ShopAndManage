@@ -53,7 +53,14 @@ const Cart = ({handleCloseCartModal}) => {
     try {
         if (totalCost < 50) return toast.error('Сумма покупки должна быть не менее 50 рублей')
         const {data} = await customFetch.post('/create-checkout-session', dataforServer)
-        window.location.href = data.session.url 
+        const sessionUrl = data.success_url || data.session.url;
+        if (sessionUrl) {
+          setTimeout(() => {
+            window.location.href = sessionUrl;
+          }, 2000)
+        }
+        toast.success('Успешная покупка!')
+        window.location.href = sessionUrl;
     } catch (error) {
         return toast.error(error?.response?.data?.msg)
     }       
@@ -66,10 +73,10 @@ const Cart = ({handleCloseCartModal}) => {
       </CartIcon>
       <Modal isOpen={isOpen}>
         <ModalHeader>
-          <h2>Cart</h2>
-          <CloseButton onClick={toggleCart}>X</CloseButton>
+          <h2 className='title-cart'>Cart</h2>
+          <CloseButton onClick={toggleCart} className='close-cart'>X</CloseButton>
         </ModalHeader>
-        <ModalContent>
+        <ModalContent className='content-cart'>
         {cartItems.length === 0 ? (
           <h4 style={{textTransform: 'inherit'}}>Нет добавленных товаров</h4>
         ) :(cartItems.map((item, key) => (
@@ -82,8 +89,8 @@ const Cart = ({handleCloseCartModal}) => {
 )))}
         </ModalContent>
         <ModalFooter>
-          <TotalCost>Total Cost: ₽ {formatPrice(totalCost)}</TotalCost>
-          <FormRowSelect labelText={'PaymentMethod'} list={PAYMENT_METHOD} style={{width: '50%', marginTop: '10px'}} onChange={(e) => setPaymentMethod(e.target.value)}></FormRowSelect>
+          <TotalCost className='cart-totalCost'>Total Cost: ₽ {formatPrice(totalCost)}</TotalCost>
+          <FormRowSelect id='selectPayment' labelText={'PaymentMethod'} list={PAYMENT_METHOD} style={{width: '50%', marginTop: '10px'}} onChange={(e) => setPaymentMethod(e.target.value)}></FormRowSelect>
           <button className="buy-btn" type='button' onClick={sendDataItems}>Buy Products</button>
         </ModalFooter>
       </Modal>

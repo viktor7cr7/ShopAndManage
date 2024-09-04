@@ -17,8 +17,8 @@ const ProgressBar = ({ amount }) => {
     const percentage = getPercentage(amount);
   
     return (
-      <div style={{  padding: '5px'}}>
-        <ProgressBarContainer>
+      <div style={{  padding: '5px'}} className="progress-container">
+        <ProgressBarContainer className="progress-bar">
           <Progress color={color} percentage={percentage}></Progress>
         </ProgressBarContainer>
         <Level>

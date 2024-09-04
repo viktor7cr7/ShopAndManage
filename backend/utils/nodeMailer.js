@@ -14,8 +14,8 @@ const sendEmail = async ({to, subject, html}) => {
     
          await transporter.sendMail(mailOptions);;
       } catch (error) {
-        console.log(error)
-        throw new Error('Ошибка при отправке письма')
+        console.error('Ошибка при отправке письма', error)
+        return { success: false, error: 'Ошибка при отправке письма' };
       }
     };
 

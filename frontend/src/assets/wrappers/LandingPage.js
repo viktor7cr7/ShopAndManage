@@ -32,7 +32,7 @@ const Wrapper = styled.section`
           animation: fadeIn 2s ease-in-out;
         }
 
-        .section>h2 {
+        .title-shop, .title-admin-panel {
               font-size: 4rem;
               color: #333;
               margin-bottom: 20px;

@@ -38,8 +38,9 @@ const Navbar = () => {
           <button 
             style={{ display: 'flex', alignItems: 'center', padding: '5px', backgroundColor: '#f0f0f0', border: 'none', borderRadius: '5px', cursor: 'pointer' }} 
             onClick={handleCartClick}
+            className='cart-btn'
           >
-            <FaShoppingCart size={24} style={{ marginRight: '8px' }} />
+            <FaShoppingCart size={24} style={{ marginRight: '8px' }}  />
             Корзина
           </button>
           <LogoutContainer />
@@ -54,7 +55,7 @@ const Navbar = () => {
 
 const CartModal = ({ isOpen, handleCloseCartModal }) => (
     <WrapperCartModal isOpen={isOpen}>
-      <div className="modal">
+      <div className="modal modal-cart">
         <div className="modal-content">
           <span className="close" onClick={handleCloseCartModal}>&times;</span>
           <Cart handleCloseCartModal={handleCloseCartModal} />

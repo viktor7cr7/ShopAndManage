@@ -118,7 +118,7 @@ const Products = ({
         <div className="product_img"
         onMouseEnter={() => setDisplay(true)}
         onMouseLeave={() => setDisplay(false)}>
-          <Description display={display}>
+          <Description display={display} className='product-description'>
             <button className='button-descr' onClick={hanldeModalDesciption}>Подробнее о продукте</button>
           </Description>
           <img src={image_url || 'https://play-lh.googleusercontent.com/vka7aPgijD-s3jvVMg4afKGvWrEjwBfKEZxiK0Eh9hGpFQt4MRH14Xb2tYON_oABzCpE=w240-h480-rw'} alt="product_img"></img>

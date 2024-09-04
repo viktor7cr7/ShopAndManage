@@ -35,7 +35,7 @@ const Wrapper = styled.nav`
     display: flex;
     align-items: center;
     justify-content: space-around;
-    width: 350px;
+    width: 400px;
   }
   @media (min-width: 992px) {
     position: sticky;

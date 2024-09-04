@@ -93,11 +93,11 @@ const renderOrder = (items) => {
     console.log(result)
     return (
       <OrdersProvider orders={result}>
-        <Form style={{display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', columnGap: '2rem'}}>
-          <FormRow name={'Поиск по ID'} onChange={(e) => handlerValue(e.target.value)}></FormRow>
-          <FormRowSelect name={'Сортировка по цене'} list={Object.values(PRODUCT_SORT_BY)} onChange={(e) => handlerValuePrice(e.target.value)}></FormRowSelect>
-          <FormRowSelect name={'Сортровка по дате'} list={Object.values(PRODUCT_SORT_BY)} onChange={(e) => handlerValueDate(e.target.value)}></FormRowSelect>
-          <FormRowSelect name={'Сортировка по статусу'} list={STATUS_PAYMENT} onChange={(e) => handlerValueStatus(e.target.value)}></FormRowSelect>
+        <Form style={{display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', columnGap: '2rem'}} className="orders-filter">
+          <FormRow name={'Поиск по ID'} onChange={(e) => handlerValue(e.target.value)} id='search'></FormRow>
+          <FormRowSelect name={'Сортировка по цене'} list={Object.values(PRODUCT_SORT_BY)} onChange={(e) => handlerValuePrice(e.target.value)} id='price'></FormRowSelect>
+          <FormRowSelect name={'Сортровка по дате'} list={Object.values(PRODUCT_SORT_BY)} onChange={(e) => handlerValueDate(e.target.value)} id='createdAt'></FormRowSelect>
+          <FormRowSelect name={'Сортировка по статусу'} list={STATUS_PAYMENT} onChange={(e) => handlerValueStatus(e.target.value)} id='status'></FormRowSelect>
           </Form>
           {
             finalResultFilter.length === 0 ? (

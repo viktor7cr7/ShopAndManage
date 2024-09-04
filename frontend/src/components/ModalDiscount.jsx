@@ -9,7 +9,10 @@ import { toast } from "react-toastify";
 const DiscountModal = ({ onClose, onSave, product_id }) => {
     const [percentage, setDiscount] = useState('');
     const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
+    let minToNextDay = new Date()
+    minToNextDay.setDate(minToNextDay.getDate() + 1);
+    const [endDate, setEndDate] = useState(minToNextDay);
+
     const navigate = useNavigate()
     const handleSave = (e) => {
         e.preventDefault()
@@ -30,15 +33,16 @@ const DiscountModal = ({ onClose, onSave, product_id }) => {
 
 
     return (
-            <div className='modal'>
+            <div className='modal modal-discount'>
             <div className='modal-content'>
                 <span className='close' onClick={onClose}>&times;</span>
                 <h2 className="form-title" style={{textAlign: "center"}}>Set Discount</h2>
                 <form className="form" onSubmit={handleSave}>
-                    <FormRow labelText={'discount %'} type={'number'} value={percentage} onChange={(e) => setDiscount(e.target.value)} min={1}></FormRow>
+                    <FormRow labelText={'discount %'} type={'number'} value={percentage} onChange={(e) => setDiscount(e.target.value)} min={1} id='percentage'></FormRow>
                     <div className="form-center">
                     <label htmlFor='startDate'>Start Date</label>
                     <DatePicker
+                        className="start-date"
                         selected={startDate}
                         onChange={(date) => setStartDate(date)}
                         dateFormat='yyyy/MM/dd'
@@ -47,15 +51,21 @@ const DiscountModal = ({ onClose, onSave, product_id }) => {
                     />
                     <label htmlFor='endDate'>End Date</label>
                     <DatePicker
+                        className="end-date"
                         selected={endDate}
                         onChange={(date) => setEndDate(date)}
                         dateFormat='yyyy/MM/dd'
                         required={true}
-                        minDate={startDate}
+                        minDate={minToNextDay}
+                        dayClassName={(date) =>
+                            date < minToNextDay ? 'blocked-day' : undefined
+                          }
+                        
                     />
+
                     </div>
                     <div className="form-footer">
-                    <button type='submit' className="btn form-btn">Save</button>
+                    <button type='submit' className="btn save-btn">Save</button>
                     <button type='button' className="btn delete-btn" onClick={handleDelete}>Delete Discount</button>
                     </div>
                 </form>

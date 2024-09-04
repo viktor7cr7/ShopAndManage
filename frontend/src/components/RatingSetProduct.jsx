@@ -36,7 +36,7 @@ const RatingStar = ({ productId, itemId, orderId }) => {
     };
 
     return (
-      <StarWrapper>
+      <StarWrapper className="star-rating">
         {[...Array(5)].map((star, index) => {
           const ratingValue = index + 1;
           return (
@@ -52,6 +52,7 @@ const RatingStar = ({ productId, itemId, orderId }) => {
                 onMouseEnter={() => setHover(ratingValue)}
                 onMouseLeave={() => setHover(0)}
                 filled={ratingValue <= currentRating}
+                className={ratingValue <= currentRating ? 'rating-set' : ''}
                 interactive={false}
               >
                 ★

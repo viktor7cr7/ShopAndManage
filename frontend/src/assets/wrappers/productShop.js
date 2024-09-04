@@ -94,6 +94,7 @@ const Wrapper = styled.section`
 
 .product-info {
   display: flex;
+  width: 100%;
   justify-content: center;
   align-items: start;
   padding-bottom: 0.5rem

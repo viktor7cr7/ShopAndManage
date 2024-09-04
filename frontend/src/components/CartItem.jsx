@@ -40,7 +40,7 @@ const CartItem = ({ item, updateQuantity, handleRemoveItem }) => {
           ) : (
             <>
                         
-              {item.quantity} <button type="button" className="btn-action" onClick={handlePencilClick}><FaPencilAlt style={{height: 20, width: 20}}/></button>
+              {item.quantity} <button type="button" className="edit-quantity" onClick={handlePencilClick}><FaPencilAlt style={{height: 20, width: 20}}/></button>
             </>
           )}
         </ItemQuantity>

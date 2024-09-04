@@ -18,7 +18,7 @@ const Products = ({
     product_id, name, old_price, new_price, category, status, created_at, stock_quantity, rating, percentage
 }) => {
   const navigate = useNavigate()
-  stock_quantity === 0 ? status = 'ended stock' : status = 'avaliable'
+  stock_quantity === 0 ? status = 'ended stock' : status = 'available'
   let styleDiscount
   const date = day(created_at).format('MMM Do, YYYY')
   if (percentage === null) {
@@ -33,28 +33,28 @@ const Products = ({
   const transformOldPrice = Math.round(old_price)
 
   return (
-    <Wrapper>
+    <Wrapper className='product-item'>
         <header>
             <div className='main-icon'>{name.charAt(0)}</div>
             <div className='info'>
-                <h5>{name}</h5>
+                <h5 className='product-name'>{name}</h5>
                 <p>{'Id ' + product_id}</p>
             </div>
             <div className='info'>
-                <h5>Категория:</h5>
-                <p>{category}</p>
+                <h5 >Категория:</h5>
+                <p className='product-category'>{category}</p>
             </div>
         </header>
         <div className='content'>
             <div className='content-center'>
                 <ProductInfo icon={<FaLocationArrow></FaLocationArrow>} text={'Quantity: ' + stock_quantity}></ProductInfo>
-                <div className={`status ${status}`}>{status}</div>
+                <div className={`product-status ${status}`}>{status}</div>
                 <StarRating rating={rating}></StarRating>
                 <ProductInfo icon={<FaCalendarAlt></FaCalendarAlt>} text={date}></ProductInfo>
             </div>
             <div className='content-center'>
-                <p className={transformOldPrice === transformNewPrice ? '' : 'no_activity_price'}><FontAwesomeIcon icon={faMoneyBill}/>{` ${transformOldPrice} RUB`}</p>
-                <p className={`fa-percentage ${styleDiscount}`}><FontAwesomeIcon icon={faPercentage} />{percentage}</p>
+                <p className={transformOldPrice === transformNewPrice ? 'product-price' : 'no_activity_price'}><FontAwesomeIcon icon={faMoneyBill}/>{` ${transformOldPrice} RUB`}</p>
+                <p className={`${styleDiscount}`}><FontAwesomeIcon icon={faPercentage} />{percentage}</p>
                 {transformOldPrice !== transformNewPrice && <p className={`fa-percentage`}><FontAwesomeIcon icon={faMoneyBill} />{` ${transformNewPrice} RUB`}</p>}
             </div>
             <footer className='actions'>
