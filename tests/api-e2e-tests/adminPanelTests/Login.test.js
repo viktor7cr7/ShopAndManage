@@ -1,7 +1,7 @@
 import {test, expect} from "playwright/test";
-import { deleteAdminByEmail } from "../../dbUtils";
+import { deleteAdminByEmail } from "../../utils/dbUtils";
 
-test.describe.skip('Авторизация аккаунта', () => {
+test.describe('Авторизация аккаунта', () => {
 
     test('Успешная авторизация', async ({ request  }) => {
   
@@ -151,38 +151,43 @@ test.describe.skip('Авторизация аккаунта', () => {
       })
 
       test('Вход с неподтвержденным email', async ({ request  }) => {
-  
+
+        const dataRegiser = {
+          name: 'Aleksey',
+          email: 'test-gmail@gmail.com',
+          password: 'HDSIhgisd@',
+        };
+        
+        try {
       
-    const dataRegiser = {
-        name: 'Aleksey',
-        email: 'test-gmail@gmail.com',
-        password: 'HDSIhgisd@',
-      };
-    
-    let response
-    let responseBody
+  
+  let response
+  let responseBody
 
 
-   response = await request.post('/api/v1/auth/admin/register', {
-    data: dataRegiser,
+ response = await request.post('/api/v1/auth/admin/register', {
+  data: dataRegiser,
+});
+
+expect(response.status()).toBe(201);
+
+responseBody = await response.json();
+
+expect(responseBody.msg).toBe('Успешная регистрация! Подтвердите адрес электронной почты!');
+
+response = await request.post('/api/v1/auth/admin/login', {
+      data: dataRegiser,
   });
 
-  expect(response.status()).toBe(201);
+  expect(response.status()).toBe(400)
 
-  responseBody = await response.json();
+  responseBody = await response.json()
+  expect(responseBody.msg).toBe('Подтвердите адрес электронной почты!')
 
-  expect(responseBody.msg).toBe('Успешная регистрация! Подтвердите адрес электронной почты!');
-
-  response = await request.post('/api/v1/auth/admin/login', {
-        data: dataRegiser,
-    });
-  
-    expect(response.status()).toBe(400)
-  
-    responseBody = await response.json()
-    expect(responseBody.msg).toBe('Подтвердите адрес электронной почты!')
-
-    await deleteAdminByEmail(dataRegiser.email)
+  await deleteAdminByEmail(dataRegiser.email)
+        } catch (error) {
+          await deleteAdminByEmail(dataRegiser.email)
+        }
   
     })
   

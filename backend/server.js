@@ -23,7 +23,6 @@ cloudinary.config({
     api_key: process.env.CLOUD_API_KEY,
     api_secret: process.env.CLOUD_API_SECRET,
   });
-
   
 app.use(cookieParser());
 app.use(express.json());
@@ -50,6 +49,7 @@ app.use(errorHandlerMiddleware);
 
 (async function () {
     try {
+        console.log('start serv', port)
         await dbConnectAdmin.connect();
         app.listen(port, () => {
             console.log(`server starting with port ${port}`);

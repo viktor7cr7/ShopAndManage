@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
 import { dbConnect } from '../../../backend/dbConnect';
-import { deleteUserByEmail } from '../../dbUtils';
+import { deleteUserByEmail } from '../../utils/dbUtils';
 
-test.describe.skip('Регистрация пользователя + активация аккаунта через письмо', () => {
+test.describe('Регистрация пользователя + активация аккаунта через письмо', () => {
 
   test('Успешная регистрация', async ({ request  }) => {
 
@@ -12,36 +12,40 @@ test.describe.skip('Регистрация пользователя + актив
         password: 'HDSIhgisd@',
       };
   
-  let response
-  let responseBody
-  let isverified, verificationtoken;
-
-   response = await request.post('/api/v1/auth/register', {
-    data: dataRegiser,
-  });
-
-  expect(response.status()).toBe(201);
-
-  responseBody = await response.json();
-
-  expect(responseBody.msg).toBe('Успешная регистрация! Подтвердите адрес электронной почты!');
-
- ({isverified, verificationtoken} = await dbConnect.one('SELECT isverified, verificationtoken from users where email = $1', [dataRegiser.email]))
-  expect(isverified).toBe(false)
-  expect(verificationtoken).toBeTruthy()
-  expect(typeof verificationtoken).toBe('string')
-
-  response = await request.post(`/api/v1/auth/verify-email/user?token=${verificationtoken}&email=${dataRegiser.email}`)
-  expect(response.status()).toBe(200)
-  
- responseBody = await response.json();
- expect(responseBody.msg).toBe('Email Verified');
-
-({isverified, verificationtoken} = await dbConnect.one('SELECT isverified, verificationtoken from users where email = $1', [dataRegiser.email]))
-expect(isverified).toBe(true)
-expect(verificationtoken).toBeFalsy()
-
-await deleteUserByEmail(dataRegiser.email)
+      try {
+        let response
+        let responseBody
+        let isverified, verificationtoken;
+      
+         response = await request.post('/api/v1/auth/register', {
+          data: dataRegiser,
+        });
+      
+        expect(response.status()).toBe(201);
+      
+        responseBody = await response.json();
+      
+        expect(responseBody.msg).toBe('Успешная регистрация! Подтвердите адрес электронной почты!');
+      
+       ({isverified, verificationtoken} = await dbConnect.one('SELECT isverified, verificationtoken from users where email = $1', [dataRegiser.email]))
+        expect(isverified).toBe(false)
+        expect(verificationtoken).toBeTruthy()
+        expect(typeof verificationtoken).toBe('string')
+      
+        response = await request.post(`/api/v1/auth/verify-email/user?token=${verificationtoken}&email=${dataRegiser.email}`)
+        expect(response.status()).toBe(200)
+        
+       responseBody = await response.json();
+       expect(responseBody.msg).toBe('Email Verified');
+      
+      ({isverified, verificationtoken} = await dbConnect.one('SELECT isverified, verificationtoken from users where email = $1', [dataRegiser.email]))
+      expect(isverified).toBe(true)
+      expect(verificationtoken).toBeFalsy()
+      
+      await deleteUserByEmail(dataRegiser.email)
+      } catch (error) {
+        await deleteUserByEmail(dataRegiser.email)
+      }
 
 })
 
@@ -155,28 +159,32 @@ test('Регистрация аккаунта с уже зарегистриро
         password: 'HDSIhgisd@',
       };
   
-  let response
-  let responseBody
-
-   response = await request.post('/api/v1/auth/register', {
-    data: dataRegiser,
-  });
-
-  expect(response.status()).toBe(201);
-
-  responseBody = await response.json();
-
-  expect(responseBody.msg).toBe('Успешная регистрация! Подтвердите адрес электронной почты!');
-
-  response = await request.post('/api/v1/auth/register', {
-    data: dataRegiser,
-  });
-
-  responseBody = await response.json();
-
-  expect(responseBody.msg).toBe('Пользователь с данным email уже зарегистрирован');
-
-await deleteUserByEmail(dataRegiser.email)
+      try {
+        let response
+        let responseBody
+      
+         response = await request.post('/api/v1/auth/register', {
+          data: dataRegiser,
+        });
+      
+        expect(response.status()).toBe(201);
+      
+        responseBody = await response.json();
+      
+        expect(responseBody.msg).toBe('Успешная регистрация! Подтвердите адрес электронной почты!');
+      
+        response = await request.post('/api/v1/auth/register', {
+          data: dataRegiser,
+        });
+      
+        responseBody = await response.json();
+      
+        expect(responseBody.msg).toBe('Пользователь с данным email уже зарегистрирован');
+      
+      await deleteUserByEmail(dataRegiser.email)
+      } catch (error) {
+        await deleteUserByEmail(dataRegiser.email)
+      }
 
 })
 

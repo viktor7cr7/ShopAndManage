@@ -4,9 +4,6 @@ COPY package*.json ./
 COPY ./package-lock.json ./
 RUN npm install
 COPY . .
-
-COPY --from=itqa47/frontend:latest /app/dist /app/public
-COPY --from=itqa47/frontend:latest /app/public/img /app/public/img
-CMD ["node", "server.js"]
-EXPOSE 3000
-RUN mkdir -p /app/public/uploads
+COPY wait-for-it.sh /usr/local/bin/wait-for-it.sh
+RUN chmod +x /usr/local/bin/wait-for-it.sh
+CMD ["npm", "run", "dev"]

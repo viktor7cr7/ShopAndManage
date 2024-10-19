@@ -5,31 +5,29 @@ import customFetch from '../utils/customFetch';
 import { useLoaderData } from 'react-router-dom';
 import { useContext, createContext } from 'react';
 
-export const loader = async({request}) => {
-  const params = Object.fromEntries([
-    ...new URL(request.url).searchParams.entries()
-  ])
+export const loader = async ({ request }) => {
+  const params = Object.fromEntries([...new URL(request.url).searchParams.entries()]);
   try {
-    const {data} = await customFetch('/admin/products', {params})
-    console.log(data)
-    return {data, searchValues: {...params}}
+    const { data } = await customFetch('/admin/products', { params });
+    console.log(data);
+    return { data, searchValues: { ...params } };
   } catch (error) {
-    return toast.error(error?.response?.data?.msg)
+    return toast.error(error?.response?.data?.msg);
   }
-}
+};
 
-const AllProductsContext = createContext()
+const AllProductsContext = createContext();
 
 const AllJobs = () => {
-  const {data, searchValues} = useLoaderData()
+  const { data, searchValues } = useLoaderData();
   return (
-    <AllProductsContext.Provider value={{data, searchValues}}>
+    <AllProductsContext.Provider value={{ data, searchValues }}>
       <SearchAdminContainer></SearchAdminContainer>
       <ProductsContainer></ProductsContainer>
     </AllProductsContext.Provider>
-  )
-}
+  );
+};
 
-export const useAllProductsContext = () => useContext(AllProductsContext)
+export const useAllProductsContext = () => useContext(AllProductsContext);
 
-export default AllJobs
+export default AllJobs;

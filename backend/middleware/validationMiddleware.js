@@ -88,4 +88,3 @@ export const validateCreateAdminProduct = withValidationErrors([
         .notEmpty()
         .withMessage('Категория обязательна для заполнения'),
 ]);
-

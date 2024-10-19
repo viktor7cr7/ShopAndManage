@@ -1,67 +1,66 @@
-import { useEffect, useState } from "react";
-import { StarWrapper, Star } from "../assets/wrappers/RatingSetProduct";
+import { useEffect, useState } from 'react';
+import { StarWrapper, Star } from '../assets/wrappers/RatingSetProduct';
 import { toast } from 'react-toastify';
-import customFetch from "../utils/customFetch";
+import customFetch from '../utils/customFetch';
 
 const RatingStar = ({ productId, itemId, orderId }) => {
-    const [rating, setRating] = useState(0);
-    const [hover, setHover] = useState(0);
-    const [currentRating, setCurrentRating] = useState(null)
+  const [rating, setRating] = useState(0);
+  const [hover, setHover] = useState(0);
+  const [currentRating, setCurrentRating] = useState(null);
 
-    useEffect(() => {
-      const fetchRating = async () => {
-        const {data} = await customFetch.post('/orders/item/rating', {productId, itemId})
-      setCurrentRating(data.rating.rating || 0)
-      }
-      fetchRating()
-    }, [rating])
-
-
-    const handleClick = (ratingValue) => {
-      handleRating(ratingValue);
+  useEffect(() => {
+    const fetchRating = async () => {
+      const { data } = await customFetch.post('/orders/item/rating', { productId, itemId });
+      setCurrentRating(data.rating.rating || 0);
     };
+    fetchRating();
+  }, [rating]);
 
-    const handleRating = async (rate) => {
-      try {
-        await customFetch.put(`/products/${itemId}`, {
-          productId,
-          rating: rate,
-          orderId
-        });
-        setRating(rate);
-        toast.success('Спасибо за отзыв!')
-      } catch (error) {
-        return toast.error(error?.response?.data?.msg)
-      }
-    };
-
-    return (
-      <StarWrapper className="star-rating">
-        {[...Array(5)].map((star, index) => {
-          const ratingValue = index + 1;
-          return (
-            <label key={ratingValue}>
-              <input
-                style={{ display: 'none' }}
-                type="radio"
-                name="rating"
-                value={ratingValue}
-                onClick={() => handleClick(ratingValue)}
-              />
-              <Star
-                onMouseEnter={() => setHover(ratingValue)}
-                onMouseLeave={() => setHover(0)}
-                filled={ratingValue <= currentRating}
-                className={ratingValue <= currentRating ? 'rating-set' : ''}
-                interactive={false}
-              >
-                ★
-              </Star>
-            </label>
-          );
-        })}
-      </StarWrapper>
-    );
+  const handleClick = (ratingValue) => {
+    handleRating(ratingValue);
   };
 
-  export default RatingStar
+  const handleRating = async (rate) => {
+    try {
+      await customFetch.put(`/products/${itemId}`, {
+        productId,
+        rating: rate,
+        orderId,
+      });
+      setRating(rate);
+      toast.success('Спасибо за отзыв!');
+    } catch (error) {
+      return toast.error(error?.response?.data?.msg);
+    }
+  };
+
+  return (
+    <StarWrapper className="star-rating">
+      {[...Array(5)].map((star, index) => {
+        const ratingValue = index + 1;
+        return (
+          <label key={ratingValue}>
+            <input
+              style={{ display: 'none' }}
+              type="radio"
+              name="rating"
+              value={ratingValue}
+              onClick={() => handleClick(ratingValue)}
+            />
+            <Star
+              onMouseEnter={() => setHover(ratingValue)}
+              onMouseLeave={() => setHover(0)}
+              filled={ratingValue <= currentRating}
+              className={ratingValue <= currentRating ? 'rating-set' : ''}
+              interactive={false}
+            >
+              ★
+            </Star>
+          </label>
+        );
+      })}
+    </StarWrapper>
+  );
+};
+
+export default RatingStar;

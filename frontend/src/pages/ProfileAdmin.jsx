@@ -5,7 +5,7 @@ import { useNavigation, Form } from 'react-router-dom';
 import customFetch from '../utils/customFetch';
 import { toast } from 'react-toastify';
 
-export const action = async ({request}) => {
+export const action = async ({ request }) => {
   const formData = await request.formData();
 
   const file = formData.get('avatar');
@@ -17,49 +17,39 @@ export const action = async ({request}) => {
   try {
     await customFetch.patch(`/admin/update-info`, formData);
     toast.success('Данные успешно обновлены');
-    return null
+    return null;
   } catch (error) {
     return toast.error(error?.response?.data?.msg);
   }
-}
+};
 
 const Profile = () => {
-    const { user } = useOutletContext();
-    const { name, email, author_id } = user;
-    const navigation = useNavigation();
-    const isSubmitting = navigation.state === 'submitting'
+  const { user } = useOutletContext();
+  const { name, email, author_id } = user;
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === 'submitting';
   return (
     <Wrapper>
-    <Form method='post' className='form' encType='multipart/form-data'>
-      <h4 className='form-title'>profile</h4>
+      <Form method="post" className="form" encType="multipart/form-data">
+        <h4 className="form-title">profile</h4>
 
-      <div className='form-center'>
-        <div className='form-row'>
-          <label htmlFor='image' className='form-label'>
-            Select an image file (max 0.5 MB):
-          </label>
-          <input
-            type='file'
-            id='avatar'
-            name='avatar'
-            className='form-input'
-            accept='image/*'
-          />
+        <div className="form-center">
+          <div className="form-row">
+            <label htmlFor="image" className="form-label">
+              Select an image file (max 0.5 MB):
+            </label>
+            <input type="file" id="avatar" name="avatar" className="form-input" accept="image/*" />
+          </div>
+          <FormRow type="text" name="name" defaultValue={name} id="name" />
+          <FormRow type="email" name="email" defaultValue={email} id="email" />
+          <input type="hidden" name="author_id" value={author_id}></input>
+          <button className="btn btn-block form-btn" type="submit" disabled={isSubmitting}>
+            {isSubmitting ? 'submitting...' : 'save changes'}
+          </button>
         </div>
-        <FormRow type='text' name='name' defaultValue={name} id='name'/>
-        <FormRow type='email' name='email' defaultValue={email} id='email' />
-        <input type='hidden' name='author_id' value={author_id}></input>
-        <button
-          className='btn btn-block form-btn'
-          type='submit'
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? 'submitting...' : 'save changes'}
-        </button>
-      </div>
-    </Form>
-  </Wrapper>
-  )
-}
+      </Form>
+    </Wrapper>
+  );
+};
 
-export default Profile
+export default Profile;

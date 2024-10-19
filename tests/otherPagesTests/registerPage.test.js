@@ -1,8 +1,8 @@
 
 import { test, expect } from "playwright/test"
-import { RegisterPageUser } from "../pages/userPage/registerUserPage"
-import { deleteUserByEmail } from "../dbUtils"
-import { VerifyEmailUser } from "../pages/userPage/verifyEmailPage"
+import { RegisterPageUser } from "../classPageObject/userPage/registerUserPage"
+import { deleteUserByEmail } from "../utils/dbUtils"
+import { VerifyEmailUser } from "../classPageObject/userPage/verifyEmailPage"
 import { MailHelper } from "../utils/mailHelper"
 
 test.describe.skip('Тестирование страницы регистрации, активация аккаунта через письмо в почте', () => {

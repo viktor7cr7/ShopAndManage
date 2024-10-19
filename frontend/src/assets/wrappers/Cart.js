@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const CartIcon = styled.div`
   position: fixed;
@@ -38,7 +38,7 @@ export const ModalContent = styled.div`
   margin-top: 20px;
   overflow-y: auto;
   padding: 10px;
-border: 1px solid #e0e0e0;
+  border: 1px solid #e0e0e0;
 `;
 
 export const CartItem = styled.div`
@@ -129,4 +129,3 @@ export const PurchaseButton = styled.button`
     background: darkblue;
   }
 `;
-

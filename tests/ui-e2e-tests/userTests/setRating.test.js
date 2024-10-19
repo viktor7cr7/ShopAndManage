@@ -1,62 +1,72 @@
-import { expect,test } from "playwright/test";
-import { authCookieAndNewContextUser } from "../../utils/authCookieAndNewContext";
-import { createProduct } from "../../utils/createProduct";
-import { BuyProducts } from "../../pages/userPage/buyProducts";
-import { OrdersPage } from "../../pages/userPage/OrdersPage";
-import { deleteProduct } from "../../utils/deleteProduct";
+import { expect, test } from 'playwright/test';
+import { authCookieAndNewContextUser } from '../../utils/authCookieAndNewContext';
+import { createProduct } from '../../utils/createUIProduct';
+import { BuyProducts } from '../../classPageObject/userPage/buyProducts';
+import { OrdersPage } from '../../classPageObject/userPage/OrdersPage';
+import { deleteProduct } from '../../utils/CRUDProduct';
+import { updateBalance } from '../../utils/updateBalanceUser';
 
-test.skip('Добавление рейтинга продукту', async () => {
+test('Добавление рейтинга продукту', async () => {
+  try {
+    await updateBalance();
 
-    const {valueName} = await createProduct()
-    const page = await authCookieAndNewContextUser()
-    const buyProductsPage = new BuyProducts(page)
-    await buyProductsPage.navigate()
+    const { valueName, close } = await createProduct();
 
-    const btnPages = buyProductsPage.getPageBtn()
-    await btnPages.nth(1).click()
+    const { page } = await authCookieAndNewContextUser();
 
-    const productItems = buyProductsPage.getProductContainer()
-    const addingProduct = await productItems.locator(`text=${valueName}`).locator('../../../..')
-    expect(addingProduct).toBeVisible()
+    const buyProductsPage = new BuyProducts(page);
+    await buyProductsPage.navigate();
 
-    const btnBuyProduct = await addingProduct.locator('text=Buy Now')
-    await btnBuyProduct.click()
+    const btnPages = buyProductsPage.getPageBtn();
+    await btnPages.nth(1).click();
 
-    const modalBuyProduct = page.locator('.modal-buy:visible')
-    await expect(modalBuyProduct).toBeVisible()
+    const productItems = buyProductsPage.getProductContainer();
+    const addingProduct = await productItems.locator(`text=${valueName}`).locator('../../../..');
+    expect(addingProduct).toBeVisible();
 
-    const selectPaymentMethods = modalBuyProduct.locator('#payment-method')
-    await selectPaymentMethods.selectOption({label: 'Balance'})
-   
-    const modalBtnBuyProduct = modalBuyProduct.locator('.action-buy')
-    await modalBtnBuyProduct.click()
+    const btnBuyProduct = await addingProduct.locator('text=Buy Now');
+    await btnBuyProduct.click();
 
-    await page.waitForURL(/dashboard\/user\/orders/)
+    const modalBuyProduct = page.locator('.modal-buy:visible');
+    await expect(modalBuyProduct).toBeVisible();
 
-    const ordersPage = new OrdersPage(page)
+    const selectPaymentMethods = modalBuyProduct.locator('#payment-method');
+    await selectPaymentMethods.selectOption({ label: 'Balance' });
 
-    const orderItems = ordersPage.getOrderItem().last()
+    const modalBtnBuyProduct = modalBuyProduct.locator('.action-buy');
+    await modalBtnBuyProduct.click();
 
-    const btnDetailsOrder = orderItems.locator('.order-detail')
-    await btnDetailsOrder.click()
+    await page.waitForURL(/dashboard\/user\/orders/);
 
-    await page.waitForSelector('.item-content')
+    const ordersPage = new OrdersPage(page);
 
-    const starRating = page.locator('.star-rating')
-    const freeStarRating = starRating.locator('label')
+    const orderItems = ordersPage.getOrderItem().last();
 
-    await freeStarRating.nth(2).click()
+    const btnDetailsOrder = orderItems.locator('.order-detail');
+    await btnDetailsOrder.click();
 
-    let toastifyNotification = page.locator('.Toastify__toast-body')
-    await expect(toastifyNotification).toBeVisible()
-    expect(await toastifyNotification.innerText()).toBe('Спасибо за отзыв!')
+    await page.waitForSelector('.item-content');
+
+    const starRating = page.locator('.star-rating');
+    const freeStarRating = starRating.locator('label');
+
+    await freeStarRating.nth(2).click();
+
+    let toastifyNotification = page.locator('.Toastify__toast-body');
+    await expect(toastifyNotification).toBeVisible();
+    expect(await toastifyNotification.innerText()).toBe('Спасибо за отзыв!');
 
     const filledStars = await starRating.locator('.rating-set').count();
     expect(filledStars).toBe(3);
 
-    await freeStarRating.nth(2).click()
-    toastifyNotification = page.locator('.Toastify__toast-body').nth(1)
-    expect(await toastifyNotification.innerText()).toBe('Вы уже оценивали данный заказ')
+    await freeStarRating.nth(2).click();
+    toastifyNotification = page.locator('.Toastify__toast-body').nth(1);
+    expect(await toastifyNotification.innerText()).toBe('Вы уже оценивали данный заказ');
 
-    await deleteProduct()
-})
+    await deleteProduct();
+
+    await close();
+  } catch (error) {
+    await deleteProduct();
+  }
+});

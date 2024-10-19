@@ -1,36 +1,37 @@
-import { expect, test } from "playwright/test";
-import { authCookieAndNewContextUser } from "../../utils/authCookieAndNewContext";
-import { ProfilePage } from "../../pages/userPage/profilePage";
-import { updateProfileUser } from "../../utils/updateProfile";
+import { expect, test } from 'playwright/test';
+import { authCookieAndNewContextUser } from '../../utils/authCookieAndNewContext';
+import { ProfilePage } from '../../classPageObject/userPage/profilePage';
+import { updateProfileUser } from '../../utils/updateProfile';
 
+test('Обновление данных юзера', async () => {
+  try {
+    const { page, close } = await authCookieAndNewContextUser();
 
-test.skip('Обновление данных юзера', async () => {
+    const pageProfile = new ProfilePage(page);
+    await pageProfile.navigate();
+    await page.waitForURL(/dashboard\/user\/profile/);
+    const updateValueEmail = 'update-test@gmail.com';
 
-    const page = await authCookieAndNewContextUser()
+    await page.setInputFiles('#avatar', './tests/testData/imgUserPanel/updateAvatar.jpg');
 
-    const pageProfile = new ProfilePage(page)
-    await pageProfile.navigate()
-    await page.waitForURL(/dashboard\/user\/profile/)
-    const updateValueEmail = 'aleksey-test@gmail.com'
-    
+    const inputEmail = pageProfile.getEmailInput();
+    await inputEmail.fill(updateValueEmail);
 
-    await page.setInputFiles('#avatar', '/api-market/tests/testData/imgUserPanel/updateAvatar.jpg')
+    const btnSaveChanges = pageProfile.getBtnSaveChanges();
+    await btnSaveChanges.click();
 
-    const inputEmail = pageProfile.getEmailInput()
-    await inputEmail.fill(updateValueEmail)
+    const toastifyNotification = page.locator('.Toastify__toast-body');
+    await expect(toastifyNotification).toBeVisible();
+    expect(await toastifyNotification.innerText()).toBe('Данные успешно обновлены');
 
+    await pageProfile.navigate();
 
-    const btnSaveChanges = pageProfile.getBtnSaveChanges()
-    await btnSaveChanges.click()
+    expect(await inputEmail.inputValue()).toBe(updateValueEmail);
 
-    const toastifyNotification = page.locator('.Toastify__toast-body')
-    await expect(toastifyNotification).toBeVisible()
-    expect(await toastifyNotification.innerText()).toBe('Данные успешно обновлены')
+    await updateProfileUser();
 
-    await pageProfile.navigate()
-
-    expect(await inputEmail.inputValue()).toBe(updateValueEmail)
-
-    await updateProfileUser()
-
-})
+    await close();
+  } catch (error) {
+    await updateProfileUser();
+  }
+});

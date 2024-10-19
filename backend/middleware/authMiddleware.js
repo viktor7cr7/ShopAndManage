@@ -8,7 +8,7 @@ import {
 import { verifyJWT } from '../utils/tokenUtils.js';
 
 export const authenticateUser = (req, res, next) => {
-    console.log(req.cookies)
+    console.log(req.cookies);
     const { token } = req.cookies;
     if (!token) {
         throw new UnauthenticatedError('Authentication invalid1');
@@ -26,12 +26,12 @@ export const authenticateUser = (req, res, next) => {
 export const authenticateAdmin = (req, res, next) => {
     const { token } = req.cookies;
     if (!token) {
-        return next(new UnauthenticatedError('Authentication invalid'))
+        return next(new UnauthenticatedError('Authentication invalid'));
     }
 
     try {
         const { authorId, authorName, email } = verifyJWT(token);
-        req.user = {authorId, authorName, email };
+        req.user = { authorId, authorName, email };
         next();
     } catch (error) {
         throw new UnauthenticatedError('Authentication invalid1');
@@ -41,6 +41,7 @@ export const authenticateAdmin = (req, res, next) => {
 export const checkPermissionActionProduct = async (req, res, next) => {
     const { authorId } = req.user;
     const { id } = req.params;
+    console.log(authorId);
 
     try {
         const authorIdProduct = await dbConnectAdmin.oneOrNone(
@@ -54,7 +55,7 @@ export const checkPermissionActionProduct = async (req, res, next) => {
                 .json({ msg: `Товара с id ${id} не существует` });
         }
 
-        if (authorId === authorIdProduct.author_id) {
+        if (authorId === authorIdProduct?.author_id) {
             return next();
         } else {
             return next(

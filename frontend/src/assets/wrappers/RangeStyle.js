@@ -2,18 +2,18 @@ import styled from 'styled-components';
 import { getTrackBackground } from 'react-range';
 
 export const WrapperRange = styled.div`
-      width: 210px;
-      height: 75px;
-      row-gap: 0.3rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: auto;
-      text-align: center;
-      grid-column: 2;
-      transition: max-height 0.3s ease-out;
-      overflow: hidden;
-      margin-top: 10px;
+  width: 210px;
+  height: 75px;
+  row-gap: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  text-align: center;
+  grid-column: 2;
+  transition: max-height 0.3s ease-out;
+  overflow: hidden;
+  margin-top: 10px;
 `;
 
 export const Track = styled.div`

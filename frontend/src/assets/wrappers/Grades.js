@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const Wrapper = styled.div`
   .grades-container {
@@ -11,10 +11,10 @@ const Wrapper = styled.div`
     color: beige;
     font-size: 1.45rem;
     font-weight: 500;
-    letter-spacing: .0125em;
+    letter-spacing: 0.0125em;
     line-height: 3rem;
     word-break: break-all;
     margin-top: 2rem;
   }
-`
-export default Wrapper
+`;
+export default Wrapper;

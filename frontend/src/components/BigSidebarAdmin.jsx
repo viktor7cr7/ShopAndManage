@@ -1,20 +1,20 @@
-import Wrapper from '../assets/wrappers/BigSidebar'
-import NavLinks from './NavLinksAdmin'
-import { useDashboardContext } from '../pages/DashboardAdmin'
+import Wrapper from '../assets/wrappers/BigSidebar';
+import NavLinks from './NavLinksAdmin';
+import { useDashboardContext } from '../pages/DashboardAdmin';
 
 const BigSidebar = () => {
-  const {showSidebar} = useDashboardContext()
+  const { showSidebar } = useDashboardContext();
 
-  return <Wrapper>
-    <div className={showSidebar ? 'sidebar-container' : 'sidebar-container show-sidebar'}>
-
-      <div className='content'>
-        <header>
-        </header>
-        <NavLinks isBigSidebar></NavLinks>
+  return (
+    <Wrapper>
+      <div className={showSidebar ? 'sidebar-container' : 'sidebar-container show-sidebar'}>
+        <div className="content">
+          <header></header>
+          <NavLinks isBigSidebar></NavLinks>
+        </div>
       </div>
-    </div>
-  </Wrapper>
-}
+    </Wrapper>
+  );
+};
 
-export default BigSidebar
+export default BigSidebar;

@@ -31,7 +31,8 @@ const Wrapper = styled.section`
     place-items: center;
   }
 
-  .grades-header, .my-grades {
+  .grades-header,
+  .my-grades {
     padding-left: 5px;
     border-radius: 5px;
     background-color: #199de1;
@@ -41,7 +42,7 @@ const Wrapper = styled.section`
     color: beige;
     font-size: 1.45rem;
     font-weight: 500;
-    letter-spacing: .0125em;
+    letter-spacing: 0.0125em;
     line-height: 3rem;
     word-break: break-all;
     margin-top: 2rem;
@@ -53,18 +54,18 @@ const Wrapper = styled.section`
   }
 
   .info-text {
-font-size: 19px;
-  margin-bottom: 10px;
+    font-size: 19px;
+    margin-bottom: 10px;
   }
 
   .info-value {
     font-weight: bold;
-  color: #199de1;
+    color: #199de1;
   }
 
   .info-value-discount {
     font-weight: bold;
-  color: #e12b1b;
+    color: #e12b1b;
   }
 
   @media (min-width: 992px) {

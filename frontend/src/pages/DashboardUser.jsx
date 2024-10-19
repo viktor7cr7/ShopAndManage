@@ -1,57 +1,55 @@
-import { useState, createContext, useContext } from 'react'
-import { Outlet, redirect, useLoaderData, useNavigate } from 'react-router-dom'
-import Wrapper from '../assets/wrappers/DashboardAdmin'
-import Navbar from '../components/NavbarUser'
-import customFetch from '../utils/customFetch'
-import {toast} from 'react-toastify'
-import BigSidebar from '../components/BigSidebarUser'
+import { useState, createContext, useContext } from 'react';
+import { Outlet, redirect, useLoaderData, useNavigate } from 'react-router-dom';
+import Wrapper from '../assets/wrappers/DashboardAdmin';
+import Navbar from '../components/NavbarUser';
+import customFetch from '../utils/customFetch';
+import { toast } from 'react-toastify';
+import BigSidebar from '../components/BigSidebarUser';
 
-export const loader = async() => {
+export const loader = async () => {
   try {
-    const {data} = await customFetch.get('/current-user')
-    return data
+    const { data } = await customFetch.get('/current-user');
+    return data;
   } catch (error) {
-    toast.error(error?.response?.data?.msg) 
-    return redirect('/')
+    toast.error(error?.response?.data?.msg);
+    return redirect('/');
   }
-}
+};
 
-const DashboardContext = createContext()
+const DashboardContext = createContext();
 
 const DashboardLayout = () => {
-  const {user} = useLoaderData()
-  const navigate = useNavigate()
-  const [showSidebar, setShowSidebar] = useState(false)
-
+  const { user } = useLoaderData();
+  const navigate = useNavigate();
+  const [showSidebar, setShowSidebar] = useState(false);
 
   const toggleSidebar = () => {
-        setShowSidebar(!showSidebar)
-  }
-  
+    setShowSidebar(!showSidebar);
+  };
+
   const logoutUser = async () => {
-    await customFetch.get('/auth/logout')
-    toast.success('successful logout')
-    navigate('/')
-  }
+    await customFetch.get('/auth/logout');
+    toast.success('successful logout');
+    navigate('/');
+  };
 
   return (
-    <DashboardContext.Provider
-    value={{user, toggleSidebar, logoutUser, showSidebar}}>
-    <Wrapper>
-        <main className='dashboard'>
-            <BigSidebar></BigSidebar>
-            <div>
-                <Navbar></Navbar>
-                <div className='dashboard-page'>
-                <Outlet context={{user}}></Outlet>
-                </div>
+    <DashboardContext.Provider value={{ user, toggleSidebar, logoutUser, showSidebar }}>
+      <Wrapper>
+        <main className="dashboard">
+          <BigSidebar></BigSidebar>
+          <div>
+            <Navbar></Navbar>
+            <div className="dashboard-page">
+              <Outlet context={{ user }}></Outlet>
             </div>
+          </div>
         </main>
-    </Wrapper>
+      </Wrapper>
     </DashboardContext.Provider>
-  )
-}
+  );
+};
 
-export const useDashboardContext = () => useContext(DashboardContext)
+export const useDashboardContext = () => useContext(DashboardContext);
 
-export default DashboardLayout
+export default DashboardLayout;

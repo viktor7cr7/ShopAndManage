@@ -10,8 +10,8 @@ export const ProgressBarContainer = styled.div`
 
 export const Progress = styled.div`
   height: 20px;
-  width: ${props => props.percentage}%;
-  background-color: ${props => props.color};
+  width: ${(props) => props.percentage}%;
+  background-color: ${(props) => props.color};
   transition: width 0.5s ease-in-out;
 `;
 
@@ -28,7 +28,7 @@ export const Level = styled.div`
   }
 
   span.discount {
-    color: rgba(0, 0, 0, .6);
+    color: rgba(0, 0, 0, 0.6);
     font-size: 12px;
   }
 `;

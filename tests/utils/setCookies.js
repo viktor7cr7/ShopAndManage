@@ -1,5 +1,7 @@
 import { loginUser, loginAdmin } from './auth';
 
+const domain = process.env.DOMAIN || 'localhost'
+
 export async function setBrowserCookies(context, email, password) {
   try {
     const cookies = await loginUser(email, password);
@@ -10,7 +12,7 @@ export async function setBrowserCookies(context, email, password) {
       return {
         name,
         value,
-        domain: 'localhost',
+        domain: domain,
         path: '/',
         httpOnly: true,
         expires: Date.now() / 1000 + 24 * 60 * 60
@@ -19,10 +21,10 @@ export async function setBrowserCookies(context, email, password) {
 
     // Установить куки в контексте браузера
     await context.addCookies(playwrightCookies);
-    const browserCookies = await context.cookies();
-   // console.log('Cookies in browser:', browserCookies);
+    await context.cookies();
+
   } catch (error) {
-    console.error('Error setting cookies in browser:', error);
+    console.error('Ошибка установки куки в браузере:', error);
     throw error;
   }
 }
@@ -37,7 +39,7 @@ export async function setBrowserAdminCookies(context, email, password) {
       return {
         name,
         value,
-        domain: 'localhost',
+        domain: domain,
         path: '/',
         httpOnly: true,
         expires: Date.now() / 1000 + 24 * 60 * 60
@@ -46,10 +48,10 @@ export async function setBrowserAdminCookies(context, email, password) {
 
     // Установить куки в контексте браузера
     await context.addCookies(playwrightCookies);
-    const browserCookies = await context.cookies();
-   // console.log('Cookies in browser:', browserCookies);
+    await context.cookies();
+
   } catch (error) {
-    console.error('Error setting cookies in browser:', error);
+    console.error('Ошибка установки куки в браузере:', error);
     throw error;
   }
 }

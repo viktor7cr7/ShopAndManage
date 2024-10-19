@@ -2,12 +2,11 @@ import FormRow from './FormRow';
 import FormRowSelect from './FormRowSelect';
 import Wrapper from '../assets/wrappers/ProfileAdmin.js';
 import { Form, useSubmit, Link } from 'react-router-dom';
-import { PRODUCT_CATEGORY,PRODUCT_STATUS, PRODUCT_SORT_BY} from '../utils/constants.js';
+import { PRODUCT_CATEGORY, PRODUCT_STATUS, PRODUCT_SORT_BY } from '../utils/constants.js';
 import { useAllProductsContext } from '../pages/AllProducts';
 
-
 const SearchAdminContainer = () => {
-  const submit = useSubmit()
+  const submit = useSubmit();
 
   const debounce = (onChange) => {
     let timeout;
@@ -20,37 +19,52 @@ const SearchAdminContainer = () => {
     };
   };
 
-
-  const {searchValues} = useAllProductsContext()
-  const {search, productStatus, productCategory, sort} = searchValues
+  const { searchValues } = useAllProductsContext();
+  const { search, productStatus, productCategory, sort } = searchValues;
   return (
     <Wrapper>
-    <Form className='form'>
-      <h5 className="form-title">search form</h5>
-      <div className="form-center filters-form">
-        <FormRow type='search' name='search' id='filter-search' defaultValue={search}
-        onChange={debounce((form) =>{submit(form)})}></FormRow>
-        <FormRowSelect labelText='product category'
-        name='productCategory'
-        id='filter-category'
-        list={['all', ...PRODUCT_CATEGORY]}
-        defaultValue={productCategory}
-        onChange={(e) => submit(e.currentTarget.form)}></FormRowSelect>
-        <FormRowSelect labelText='product status'
-        name='productStatus'
-        id='filter-status'
-        list={['all', ...Object.values(PRODUCT_STATUS)]}
-        defaultValue={productStatus}
-        onChange={(e) => submit(e.currentTarget.form)}></FormRowSelect>
-        <FormRowSelect name='sort' defaultValue={sort}
-        id='sort-price'
-        list={[...Object.values(PRODUCT_SORT_BY)]}
-        onChange={(e) => submit(e.currentTarget.form)}></FormRowSelect>
-        <Link to='/dashboard/admin/all-products' className='btn form-btn reset-btn'>Reset Search Values</Link>
-      </div>
-    </Form>
-  </Wrapper>
-  )
-}
+      <Form className="form">
+        <h5 className="form-title">search form</h5>
+        <div className="form-center filters-form">
+          <FormRow
+            type="search"
+            name="search"
+            id="filter-search"
+            defaultValue={search}
+            onChange={debounce((form) => {
+              submit(form);
+            })}
+          ></FormRow>
+          <FormRowSelect
+            labelText="product category"
+            name="productCategory"
+            id="filter-category"
+            list={['all', ...PRODUCT_CATEGORY]}
+            defaultValue={productCategory}
+            onChange={(e) => submit(e.currentTarget.form)}
+          ></FormRowSelect>
+          <FormRowSelect
+            labelText="product status"
+            name="productStatus"
+            id="filter-status"
+            list={['all', ...Object.values(PRODUCT_STATUS)]}
+            defaultValue={productStatus}
+            onChange={(e) => submit(e.currentTarget.form)}
+          ></FormRowSelect>
+          <FormRowSelect
+            name="sort"
+            defaultValue={sort}
+            id="sort-price"
+            list={[...Object.values(PRODUCT_SORT_BY)]}
+            onChange={(e) => submit(e.currentTarget.form)}
+          ></FormRowSelect>
+          <Link to="/dashboard/admin/all-products" className="btn form-btn reset-btn">
+            Reset Search Values
+          </Link>
+        </div>
+      </Form>
+    </Wrapper>
+  );
+};
 
-export default SearchAdminContainer
+export default SearchAdminContainer;

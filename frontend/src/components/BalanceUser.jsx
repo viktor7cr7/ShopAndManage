@@ -9,8 +9,8 @@ const BalanceComponent = ({ balance }) => {
   const navigate = useNavigate();
 
   const handleBalanceClick = () => {
-    setShowAddFundsButton(prevState => !prevState);
-    setIsRotated(prevState => !prevState);
+    setShowAddFundsButton((prevState) => !prevState);
+    setIsRotated((prevState) => !prevState);
   };
 
   const handleAddFundsClick = () => {
@@ -19,33 +19,26 @@ const BalanceComponent = ({ balance }) => {
 
   return (
     <Wrapper>
-        <div className="balance-container">
-      <button onClick={handleBalanceClick} className="balance-btn">
-        Balance: {formatPrice(balance)}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="8"
-          height="5"
-          viewBox="0 0 8 5"
-          fill="none"
-          className={`header__currency--arr ${isRotated ? 'rotated' : ''}`}
-        >
-          <path
-            d="M7 1L4 4L1 1"
-            stroke="#757575"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          ></path>
-        </svg>
-        {showAddFundsButton && (
-        <button onClick={handleAddFundsClick} className="add-funds-btn">
-          Add Funds
+      <div className="balance-container">
+        <button onClick={handleBalanceClick} className="balance-btn">
+          Balance: {formatPrice(balance)}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="8"
+            height="5"
+            viewBox="0 0 8 5"
+            fill="none"
+            className={`header__currency--arr ${isRotated ? 'rotated' : ''}`}
+          >
+            <path d="M7 1L4 4L1 1" stroke="#757575" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
+          </svg>
+          {showAddFundsButton && (
+            <button onClick={handleAddFundsClick} className="add-funds-btn">
+              Add Funds
+            </button>
+          )}
         </button>
-      )}
-      </button>
-      
-    </div>
+      </div>
     </Wrapper>
   );
 };

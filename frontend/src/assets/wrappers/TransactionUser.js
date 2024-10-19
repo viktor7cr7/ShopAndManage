@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const StyledTable = styled.table`
   width: 100%;
@@ -16,19 +16,19 @@ const StyledTable = styled.table`
     }
   }
 
-  tr>th:nth-child(1) {
+  tr > th:nth-child(1) {
     width: 10%;
   }
 
-  tr>th:nth-child(2) {
+  tr > th:nth-child(2) {
     width: 20%;
   }
 
-  tr>th:nth-child(3) {
+  tr > th:nth-child(3) {
     width: 20%;
   }
 
-  tr>th:nth-child(4) {
+  tr > th:nth-child(4) {
     width: 25%;
   }
 
@@ -37,7 +37,6 @@ const StyledTable = styled.table`
     border: solid 1px gray;
     background: papayawhip;
   }
-  
 `;
 
 export const SortIcon = styled.span`
@@ -58,4 +57,4 @@ export const SortIcon = styled.span`
   }
 `;
 
-export default StyledTable
+export default StyledTable;

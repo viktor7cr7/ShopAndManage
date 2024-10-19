@@ -1,11 +1,11 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const Wrapper = styled.aside`
-.modal {
-    display: flex; 
+  .modal {
+    display: flex;
     justify-content: center;
     align-items: center;
-    position: fixed; 
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -15,7 +15,7 @@ const Wrapper = styled.aside`
     align-items: center;
     z-index: 1000;
   }
-  
+
   .modal-content {
     background-color: #fff;
     padding: 20px;
@@ -24,7 +24,6 @@ const Wrapper = styled.aside`
     max-width: 600px;
     width: 100%;
   }
-  
 
   .close {
     position: absolute;
@@ -33,17 +32,17 @@ const Wrapper = styled.aside`
     font-size: 20px;
     cursor: pointer;
   }
-  
+
   .modal.show {
     display: flex;
   }
-  
+
   .blocked-day {
     color: #ccc;
-  pointer-events: none;
-  background-color: #f0f0f0;
-  cursor: not-allowed;
+    pointer-events: none;
+    background-color: #f0f0f0;
+    cursor: not-allowed;
   }
-  `
+`;
 
-  export default Wrapper;
+export default Wrapper;

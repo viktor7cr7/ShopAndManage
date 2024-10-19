@@ -1,12 +1,12 @@
-import Wraper from '../assets/wrappers/Percentage'
-const Percentage = ({percentage}) => {
+import Wraper from '../assets/wrappers/Percentage';
+const Percentage = ({ percentage }) => {
   return (
     <Wraper>
-    <div className='percentage-product'>
+      <div className="percentage-product">
         <span>{`-${percentage}%`}</span>
-    </div>
+      </div>
     </Wraper>
-  )
-}
+  );
+};
 
-export default Percentage
+export default Percentage;

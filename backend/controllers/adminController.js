@@ -1,59 +1,64 @@
-import cloudinary from 'cloudinary'
-import {promises as fs} from 'fs'
-import { BadRequestError, ErrorFromDataBase } from '../errors/customError.js'
-import { dbConnect, dbConnectAdmin } from '../dbConnect.js'
-import { StatusCodes } from 'http-status-codes'
+import cloudinary from 'cloudinary';
+import { promises as fs } from 'fs';
+import { BadRequestError, ErrorFromDataBase } from '../errors/customError.js';
+import { dbConnect, dbConnectAdmin } from '../dbConnect.js';
+import { StatusCodes } from 'http-status-codes';
 
 export async function updateAdminInfo(req, res, next) {
-    const {name, email, author_id} = req.body
-
-    if (!name || !email || !author_id) {
-        return next(new BadRequestError('Заполните необходимые данные'))
+    const { name, email } = req.body;
+    const { authorId } = req.user;
+    if (!name || !email || !authorId) {
+        return next(new BadRequestError('Заполните необходимые данные'));
     }
-    let fields = []
-    let values = []
-    let query = 'UPDATE users SET '
-    const dataImage= {}
+    let fields = [];
+    let values = [];
+    let query = 'UPDATE users SET ';
+    const dataImage = {};
     if (req.file) {
-        const response = await cloudinary.v2.uploader.upload(req.file.path)
-        await fs.unlink(req.file.path)
-        dataImage.avatar = response.secure_url
-        dataImage.avatarPublicId = response.public_id
-        fields.push('avatar = $' + (fields.length + 1))
-        values.push(dataImage.avatar)
+        try {
+            const response = await cloudinary.v2.uploader.upload(req.file.path);
+            await fs.unlink(req.file.path);
+            dataImage.avatar = response.secure_url;
+            dataImage.avatarPublicId = response.public_id;
+            fields.push('avatar = $' + (fields.length + 1));
+            values.push(dataImage.avatar);
+        } catch (error) {
+            console.error('Ошибка при загрузке файла', error);
+        }
     }
 
     if (name) {
-        fields.push(`name = $` + (values.length + 1))
-        values.push(name)
+        fields.push(`name = $` + (values.length + 1));
+        values.push(name);
     }
 
     if (email) {
-        fields.push(`email = $` + (values.length + 1))
-        values.push(email)
+        fields.push(`email = $` + (values.length + 1));
+        values.push(email);
     }
 
     query +=
-    fields.join(', ') +
-    ` WHERE author_id = $` +
-    (fields.length + 1) +
-    ' RETURNING *';
-  values.push(author_id);
-
-  try {
-    const updateAdminInfo = await dbConnectAdmin.oneOrNone(query, values);
-    if (updateAdminInfo) {
-      res.status(StatusCodes.OK).json({ msg: 'Данные успешно обновлены' });
+        fields.join(', ') +
+        ` WHERE author_id = $` +
+        (fields.length + 1) +
+        ' RETURNING *';
+    values.push(authorId);
+    try {
+        const updateAdminInfo = await dbConnectAdmin.oneOrNone(query, values);
+        if (updateAdminInfo) {
+            res.status(StatusCodes.OK).json({
+                msg: 'Данные успешно обновлены',
+            });
+        }
+    } catch (error) {
+        return next(new ErrorFromDataBase(error.message));
     }
-  } catch (error) {
-    return next(new ErrorFromDataBase(error.message));
-  }
 }
 
 export async function getOrdersForAdmin(req, res, next) {
-  const {authorId} = req.user
-  try {
-    const orderQuery = `
+    const { authorId } = req.user;
+    try {
+        const orderQuery = `
       SELECT o.created_at, oi.product_id, SUM(oi.quantity) as quantity 
       FROM orders o 
       INNER JOIN order_items oi ON o.order_id = oi.order_id 
@@ -61,33 +66,41 @@ export async function getOrdersForAdmin(req, res, next) {
       GROUP BY o.created_at, oi.product_id 
       ORDER BY o.created_at`;
 
-      const ordersResult = await dbConnect.any(orderQuery);
+        const ordersResult = await dbConnect.any(orderQuery);
 
-    
-    const productIds = ordersResult.map(row => row.product_id);
-    console.log(authorId)
-    if (productIds.length === 0) {
-      return res.status(StatusCodes.OK).json({statsOrders: [], totalQuantity: 0})
-    }
+        const productIds = ordersResult.map((row) => row.product_id);
+        if (productIds.length === 0) {
+            return res
+                .status(StatusCodes.OK)
+                .json({ statsOrders: [], totalQuantity: 0 });
+        }
 
-    const productQuery = `
+        const productQuery = `
     SELECT product_id, author_id 
     FROM products 
     WHERE author_id = $1 AND product_id IN ($2:csv)`;
 
-  const productsResult = await dbConnectAdmin.any(productQuery, [authorId, productIds]);
+        const productsResult = await dbConnectAdmin.any(productQuery, [
+            authorId,
+            productIds,
+        ]);
 
-    const filteredOrders = ordersResult.filter(order =>
-      productsResult.some(product => product.product_id === order.product_id)
-    );
-    
+        const filteredOrders = ordersResult.filter((order) =>
+            productsResult.some(
+                (product) => product.product_id === order.product_id
+            )
+        );
 
-    const totalQuantity = filteredOrders.reduce((acc, item) => acc + +item.quantity, 0)
+        const totalQuantity = filteredOrders.reduce(
+            (acc, item) => acc + +item.quantity,
+            0
+        );
 
-    res.status(StatusCodes.OK).json({statsOrders: filteredOrders, totalQuantity})
-      
-  }
-  catch (error) {
-    return next(new ErrorFromDataBase(error.message))
-  }
+        res.status(StatusCodes.OK).json({
+            statsOrders: filteredOrders,
+            totalQuantity,
+        });
+    } catch (error) {
+        return next(new ErrorFromDataBase(error.message));
+    }
 }

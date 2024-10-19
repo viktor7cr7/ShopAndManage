@@ -1,27 +1,26 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const Wrapper = styled.section`
-    form {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 1rem 1.5rem;
-        margin: 0.5rem auto;
-    }
-    
+  form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 1.5rem;
+    margin: 0.5rem auto;
+  }
 
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); 
-  gap: 10px;
-  height: 300px;
-}
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    height: 300px;
+  }
 
-.full-width {
-  grid-column: 1 / -1;
-}
+  .full-width {
+    grid-column: 1 / -1;
+  }
 
-.bth-action {
+  .bth-action {
     height: 34px;
     min-width: 41px;
     font-size: 14px;
@@ -36,7 +35,7 @@ const Wrapper = styled.section`
     padding: 10px;
     text-align: center;
     cursor: pointer;
-}
+  }
 
   .btn-apply {
     border: none;
@@ -65,6 +64,6 @@ const Wrapper = styled.section`
     justify-content: center;
     align-items: center;
   }
-`
+`;
 
-export default Wrapper
+export default Wrapper;

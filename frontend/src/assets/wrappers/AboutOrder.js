@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const DetailsWrapper = styled.div`
   padding: 20px;
@@ -17,7 +17,7 @@ export const OrderId = styled.div`
 `;
 
 export const OrderStatus = styled.div`
-  color: ${props => props.status === 'unpaid' ? 'red' : 'green'};
+  color: ${(props) => (props.status === 'unpaid' ? 'red' : 'green')};
 `;
 
 export const OrderContent = styled.div`

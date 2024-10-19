@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const ModalWrapper = styled.div`
   display: ${({ show }) => (show ? 'block' : 'none')};
@@ -41,27 +41,27 @@ const ModalWrapper = styled.div`
       grid-template-columns: 1fr;
       row-gap: 1rem;
     }
-}
+  }
 
-    .form-label {
-        margin-bottom: 0.5rem
-    }
+  .form-label {
+    margin-bottom: 0.5rem;
+  }
 
-    .result {
-        margin-top: 0.5rem;
-        font-size: 20px;
-    }
+  .result {
+    margin-top: 0.5rem;
+    font-size: 20px;
+  }
 
-    .close-btn {
-        display: block;
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        background: none;
-        border: none;
-        font-size: 24px;
-        cursor: pointer
-    }
+  .close-btn {
+    display: block;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
 `;
 
 const Overlay = styled.div`
@@ -75,6 +75,4 @@ const Overlay = styled.div`
   z-index: 999;
 `;
 
-export {
-    ModalWrapper, Overlay
-}
+export { ModalWrapper, Overlay };

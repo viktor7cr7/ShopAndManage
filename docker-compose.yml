@@ -1,0 +1,85 @@
+version: '3'
+services:
+  db_admin_panel:
+    image: postgres:16
+    user: "postgres"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: BETejEmm321
+      POSTGRES_DB: admin_panel
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-admin-data:/var/lib/postgresql/data
+      - ./db_backups_admin:/docker-entrypoint-initdb.d
+      - ./scripts/wait-for-it.sh:/usr/local/bin/wait-for-it.sh
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+
+  db_user_panel:
+    image: postgres:16
+    user: "postgres"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: BETejEmm321
+      POSTGRES_DB: user_panel
+    ports:
+    - "5433:5432"
+    volumes:
+      - db-user-data:/var/lib/postgresql/data
+      - ./db_backups_user:/docker-entrypoint-initdb.d
+      - ./scripts/wait-for-it.sh:/usr/local/bin/wait-for-it.sh
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+    restart: always
+    ports: 
+      - "3005:3005"
+    depends_on:
+      - db_admin_panel
+      - db_user_panel
+    environment:
+      ORIGIN_URL: http://frontend:5173
+      PGP_URL_ADMIN: postgres://postgres:BETejEmm321@db_admin_panel:5432/admin_panel
+      PGP_URL: postgres://postgres:BETejEmm321@db_user_panel:5432/user_panel
+    entrypoint: ["/usr/local/bin/wait-for-it.sh", "db_admin_panel:5432", "--timeout=30", "--", "/usr/local/bin/wait-for-it.sh", "db_user_panel:5432", "--timeout=30", "--", "npm", "run", "dev"]
+  
+  frontend:
+    build:
+      context: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_BACKEND_URL: 'http://backend:3005'
+
+
+  ui-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - backend
+    environment:
+      PGP_URL_ADMIN: postgres://postgres:BETejEmm321@db_admin_panel:5432/admin_panel
+      PGP_URL: postgres://postgres:BETejEmm321@db_user_panel:5432/user_panel
+      VITE_BASE_URL: http://frontend:5173
+      ORIGIN_URL: http://frontend:5173
+      DOMAIN: frontend
+    entrypoint: ["/usr/local/bin/wait-for-it.sh", "db_admin_panel:5432", "--timeout=30", "--", "/usr/local/bin/wait-for-it.sh", "db_user_panel:5432", "--timeout=30", "--", "npm", "run", "test"]
+
+
+volumes:
+  db-admin-data:
+  db-user-data:

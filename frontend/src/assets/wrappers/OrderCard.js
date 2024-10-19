@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Card = styled.div`
   border: 1px solid #ccc;
@@ -18,7 +18,7 @@ export const OrderId = styled.div`
 `;
 
 export const OrderStatus = styled.div`
-  color: ${props => props.status === 'unpaid' ? 'red' : 'green'};
+  color: ${(props) => (props.status === 'unpaid' ? 'red' : 'green')};
 `;
 
 export const OrderContent = styled.div`
@@ -44,7 +44,7 @@ export const ViewDetailsButton = styled.button`
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
-  
+
   &:hover {
     background-color: #147ab8;
   }

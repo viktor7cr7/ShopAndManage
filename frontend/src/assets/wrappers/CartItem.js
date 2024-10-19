@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const CartItemWrapper = styled.div`
   display: flex;
@@ -6,12 +6,14 @@ export const CartItemWrapper = styled.div`
   align-items: center;
   padding: 10px 0;
 
-  .subtotal-text, .quantity-text {
+  .subtotal-text,
+  .quantity-text {
     color: #757575;
     margin-right: 5px;
   }
 
-  .btn-action, .edit-quantity {
+  .btn-action,
+  .edit-quantity {
     height: 48px;
     min-width: 50px;
     background-color: rgb(255, 233, 255);
@@ -23,7 +25,7 @@ export const CartItemWrapper = styled.div`
   }
 
   .update-btn {
-     height: 30px;
+    height: 30px;
     border: none;
     color: white;
     padding: 5px 15px;
@@ -42,7 +44,6 @@ export const CartItemWrapper = styled.div`
     background-color: #4bb8fe;
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
   }
-
 `;
 
 export const ItemQuantity = styled.div`

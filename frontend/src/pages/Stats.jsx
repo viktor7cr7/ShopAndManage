@@ -1,33 +1,34 @@
-import React, { useEffect, useState } from 'react'
-import { useDashboardContext } from './DashboardAdmin'
-import customFetch from '../utils/customFetch'
+import React, { useEffect, useState } from 'react';
+import { useDashboardContext } from './DashboardAdmin';
+import customFetch from '../utils/customFetch';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import StatsContainer from '../components/StatsContainer';
 import Wrapper from '../assets/wrappers/Stats';
 import { toast } from 'react-toastify';
-  
+
 export const Stats = () => {
-  const [itemsStats, setItemsStats] = useState([])
-  const [qunatityOrders, setQuantityOrders] = useState(0)
-  const {author_id} = useDashboardContext()
+  const [itemsStats, setItemsStats] = useState([]);
+  const [qunatityOrders, setQuantityOrders] = useState(0);
+  const { author_id } = useDashboardContext();
 
   useEffect(() => {
     const getStats = async () => {
-        try {
-            const {data} = await customFetch.get('/admin/orders-stat', author_id)
-            setItemsStats(data.statsOrders)
-            setQuantityOrders(data.totalQuantity)
-    } catch (error) {
-        toast.error(error?.response?.data?.msg)
-        throw new Error(error.message)
-    }}
-    getStats()
-  }, [])
+      try {
+        const { data } = await customFetch.get('/admin/orders-stat', author_id);
+        setItemsStats(data.statsOrders);
+        setQuantityOrders(data.totalQuantity);
+      } catch (error) {
+        toast.error(error?.response?.data?.msg);
+        throw new Error(error.message);
+      }
+    };
+    getStats();
+  }, []);
 
   const processData = (data) => {
     const result = {};
-    
-    data.forEach(item => {
+
+    data.forEach((item) => {
       const date = new Date(item.created_at).toLocaleDateString();
       if (!result[date]) {
         result[date] = { date, quantity: 0, products: [] };
@@ -35,7 +36,7 @@ export const Stats = () => {
       result[date].quantity += +item.quantity;
       result[date].products.push(item.product_id);
     });
-  
+
     return Object.values(result);
   };
 
@@ -50,26 +51,25 @@ export const Stats = () => {
         </div>
       );
     }
-  
+
     return null;
   };
 
-
-  const statsResult = processData(itemsStats)
+  const statsResult = processData(itemsStats);
   return (
     <Wrapper>
-    <StatsContainer totalQuantity={qunatityOrders}></StatsContainer>
-    <ResponsiveContainer width="100%" height={400} className='stats-container'>
-      <BarChart data={statsResult}>
-        <XAxis dataKey="date" />
-        <YAxis />
-        <Tooltip content={<CustomTooltip />} />
-        <Legend />
-        <Bar dataKey="quantity" fill="#8884d8" />
-      </BarChart>
-    </ResponsiveContainer>
+      <StatsContainer totalQuantity={qunatityOrders}></StatsContainer>
+      <ResponsiveContainer width="100%" height={400} className="stats-container">
+        <BarChart data={statsResult}>
+          <XAxis dataKey="date" />
+          <YAxis />
+          <Tooltip content={<CustomTooltip />} />
+          <Legend />
+          <Bar dataKey="quantity" fill="#8884d8" />
+        </BarChart>
+      </ResponsiveContainer>
     </Wrapper>
   );
-}
+};
 
-export default Stats
+export default Stats;
