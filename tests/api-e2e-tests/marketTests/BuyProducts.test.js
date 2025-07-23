@@ -133,12 +133,10 @@ where p.product_id IN (${idProducts}) ORDER BY p.product_id`);
       return acc;
     }, []);
 
-    console.log(itemsProduct);
     const startBalance = await dbConnect.one(
       'SELECT amount from balances where user_id = $1',
       user.id,
     );
-    console.log(startBalance);
     const response = await request.post('/api/v1/create-checkout-session', {
       data: {
         items: itemsProduct,
@@ -169,19 +167,18 @@ where p.product_id IN (28,29,30) ORDER BY p.product_id`);
       acc += dataProduct.new_price * 2;
       return acc;
     }, 0);
-    console.log('total amount' + totalAmount);
+
     const totalPriceConvertToDollar = (totalAmount / 87.9).toFixed(2);
 
     const { max: orderId } = await dbConnect.one(
       'SELECT MAX(order_id) from orders',
     );
-    console.log(orderId);
+
     const { total_price, status } = await dbConnect.one(
       'SELECT total_price, status from orders where order_id = $1',
       [orderId],
     );
-    console.log(total_price);
-    console.log(totalPriceConvertToDollar);
+
     expect(+total_price).toBe(+totalPriceConvertToDollar);
     expect(status).toBe('paid');
 
