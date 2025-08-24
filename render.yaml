@@ -42,7 +42,7 @@ services:
 
 
 databases:
-  - name: db_n2ly_test
+  - name: db_n2ly
     plan: free
     region: frankfurt
     postgresMajorVersion: "15"
