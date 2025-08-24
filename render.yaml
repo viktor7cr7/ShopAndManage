@@ -45,4 +45,4 @@ databases:
   - name: db_n2ly
     plan: free
     region: frankfurt
-    postgresMajorVersion: "16"
+    postgresMajorVersion: "15"
