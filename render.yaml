@@ -37,7 +37,7 @@ services:
         value: 134733326371941
       - key: CLOUD_API_SECRET
         value: E8vX1VghGXjmFXIyWiFO11lipBc
-      - key: PGP_URL_ADMIN
+      - key: PGP_URL_ADMIN_TEST
         value: "postgresql://db_n2ly_user:AKwivUtLGC5DVfzvWdvkYbIh8kK4zkM6@dpg-cqgnkqiju9rs738dj5ng-a.frankfurt-postgres.render.com/db_n2ly"
 
 
